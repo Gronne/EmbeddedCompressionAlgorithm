@@ -1,8 +1,13 @@
 #include "Top.h"
 #include "Datatypes.h"
-Top::Top(sc_module_name name) : sc_module(name), fifo("test") {
-	input = new Input("sensor");
-	input->out(fifo);
+#include "TextFileSensor.h"
+#include "SensorFactory.h"
+Top::Top(sc_module_name name) : sc_module(name)  {
+
+	fifo = new sc_fifo<Package*>("fifi");
+	sensor = SensorFactory::CreateTextFileSensor(fifo);
+	//sensor = new TextFileSensor("sensor", (char*)INPUT_FILE_A);
+	//sensor->out(fifo);
 	//FILE* fp_data;
 	//char* tmp_val;
 	//fp_data = fopen(INPUT_FILE_A, "r");
@@ -18,5 +23,5 @@ Top::Top(sc_module_name name) : sc_module(name), fifo("test") {
 }
 
 Top:: ~Top() {
-	delete input;
+	delete sensor;
 }
