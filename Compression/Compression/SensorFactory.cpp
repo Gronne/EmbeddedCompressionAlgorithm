@@ -1,10 +1,9 @@
 #include "SensorFactory.h"
 #include "TextFileSensor.h"
 
-template<class T>
-ISensor<T>* SensorFactory<T>::CreateTextFileSensor(sc_fifo<T*> fifo)
+ISensor<Package*>* SensorFactory::CreateTextFileSensor(sc_fifo<Package*>* fifo)
 {
-	ISensor<T>* textFileSensor = new TextFileSensor<T>("textFileSensor", INPUT_FILE_A);
-	textFileSensor->out = fifo;
+	ISensor<Package*>* textFileSensor = new TextFileSensor("textFileSensor", (char*)INPUT_FILE_A);
+	textFileSensor->out(*fifo);
 	return textFileSensor;
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include "ISensor.h"
 #include "Package.h"
-
+#include <string>
 class TextFileSensor :
-    public ISensor<Package>, public sc_module
+    public ISensor<Package*>, public sc_module
 {
 public:
     sc_fifo_out<Package*> out; //pipe

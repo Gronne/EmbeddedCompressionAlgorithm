@@ -146,21 +146,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Input_Communication.cpp" />
     <ClCompile Include="Receiver.cpp" />
-    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="SensorFactory.cpp" />
     <ClCompile Include="TextFileSensor.cpp" />
     <ClCompile Include="Top.cpp" />
     <ClCompile Include="Transmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Datatypes.h" />
-    <ClInclude Include="Input.h" />
     <ClInclude Include="ISensor.h" />
     <ClInclude Include="Package.h" />
     <ClInclude Include="Receiver.h" />
-    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="SensorFactory.h" />
     <ClInclude Include="TextFileSensor.h" />
     <ClInclude Include="Top.h" />
     <ClInclude Include="Transmitter.h" />
