@@ -1,11 +1,14 @@
 // Compression.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-
-int main()
+#include <systemc.h>
+#include "Top.h"
+int sc_main(int argc, char** argv)
 {
-    std::cout << "Hello World!\n";
+    // test_module tmod{ "tmod" };
+    Top top{ "top" };
+    sc_start(200, SC_MS);
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
