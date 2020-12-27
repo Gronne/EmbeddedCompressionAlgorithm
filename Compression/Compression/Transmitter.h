@@ -1,14 +1,14 @@
 #pragma once
-#include "Package.h"
-class Transmitter : public sc_module {
+#include "ITransmitter.h"
+template <class T>
+class Transmitter : public ITransmitter<T>, public sc_module {
 public:
-    sc_fifo_out<Package*> out;
-    sc_fifo_in<Package*> in;
-
+    sc_fifo_out<T*> out;
+    sc_fifo_in<T*> in;
     Transmitter(sc_module_name name);
     SC_HAS_PROCESS(Transmitter);
 private:
-    void Transmit();
-    sc_uint<32> sequenceNumber;
+    virtual void Transmit();
+    virtual void ReadData();
 };
 
