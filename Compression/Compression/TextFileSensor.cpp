@@ -1,11 +1,7 @@
-#include "Input.h"
+#include "TextFileSensor.h"
 #include "Datatypes.h"
-#include <stdlib.h>
-Input::Input(sc_module_name name) : sc_module(name) {
-	SC_THREAD(measure);
-}
-
-void Input::measure() {
+void TextFileSensor::Measure()
+{
 	// declare temp variables
 	char tmp_val;
 	char tmp_final[55];
@@ -14,7 +10,7 @@ void Input::measure() {
 	memset(tmp_final, 0, 55);
 	// declare filepointer
 	FILE* fp_data;
-	fp_data = fopen(INPUT_FILE_A, "r");
+	fp_data = fopen(_filename, "r");
 	//get size of file in number of characters and rewind file pointer.
 	fseek(fp_data, 0, SEEK_END);
 	size = ftell(fp_data);
@@ -55,8 +51,10 @@ void Input::measure() {
 		}
 
 	}
-	
-
-	sc_stop;
 }
 
+
+TextFileSensor::TextFileSensor(sc_module_name name, char* filename) : sc_module(name) {
+	SC_THREAD(Measure);
+	_filename = filename;
+}
