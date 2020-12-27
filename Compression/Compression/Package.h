@@ -4,8 +4,5 @@
 #define DATA_SIZE (PACKET_SIZE-20)
 typedef struct
 {
-
-	char Inputvalue;
-
-	char Data[DATA_SIZE];
+	char* data;
 } Package;

@@ -2,30 +2,61 @@
 #include "Datatypes.h"
 #include <stdlib.h>
 Input::Input(sc_module_name name) : sc_module(name) {
-	SC_THREAD(sensor);
+	SC_THREAD(measure);
 }
 
-void Input::sensor() {
-	while (true) {
-		FILE* fp_data;
-		
-		fp_data = fopen(INPUT_FILE_A, "r");
-		fseek(fp_data, 0, SEEK_END);
-		size = ftell(fp_data);
-		char tmp_val[100];
-		rewind(fp_data);
-		Package* data = new Package();
-		std::cout << size << std::endl;
-		
-		while (fscanf(fp_data, "%s", tmp_val) != -1)
+void Input::measure() {
+	// declare temp variables
+	char tmp_val;
+	char tmp_final[55];
+	Package* data = new Package();
+	int charCounter = 0;
+	memset(tmp_final, 0, 55);
+	// declare filepointer
+	FILE* fp_data;
+	fp_data = fopen(INPUT_FILE_A, "r");
+	//get size of file in number of characters and rewind file pointer.
+	fseek(fp_data, 0, SEEK_END);
+	size = ftell(fp_data);
+	rewind(fp_data);
+
+	//for each character in the file
+	for (size_t i = 0; i < size; i++)
+	{
+		// If end of file is reached (-1) then break out of the for loop and stop the thread. 
+		if (fscanf(fp_data, "%c", &tmp_val) == -1)
 		{
-			printf("%s ", tmp_val);
-			//data->Inputvalue = tmp_val;
-			//printf("%s", data->Inputvalue);
-			//out.write(data);
+			sc_stop;
+			break;
+		}
+		else {
+			// if the character is a letter in the alphabet. 
+			if ((tmp_val >= 'a' && tmp_val <= 'z') || (tmp_val >= 'A' && tmp_val <= 'Z'))
+			{
+				//add it to the tmp_final which is a variable that holds a whole word.
+				tmp_final[charCounter] = tolower(tmp_val);
+				charCounter++;
+			}
+			else if (tmp_val == 32 || tmp_val == '\n') {
+				// write the data to the fifo
+				data->data = tmp_final;
+				out.write(data);
+				/* for (size_t i = 0; i < strlen(data->data); i++)
+				{
+					cout << data->data[i];
+				}
+				cout << endl;
+				*/
+				// reset charCounter, tmp_final.
+				charCounter = 0;
+				memset(tmp_final, 0, 55);
+				data = new Package();
+			}
 		}
 
-		sc_stop;
-		break;
 	}
+	
+
+	sc_stop;
 }
+

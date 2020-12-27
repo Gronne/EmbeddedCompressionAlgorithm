@@ -7,7 +7,7 @@ public:
     Input(sc_module_name name);
     SC_HAS_PROCESS(Input);
 private:
-    void sensor();
+    void measure();
     sc_uint<32> inputvalue;
     sc_uint<32> size;
 };
