@@ -2,10 +2,15 @@
 //
 
 #include <systemc.h>
+#include "Datatypes.h"
 #include "Top.h"
 int sc_main(int argc, char** argv)
 {
     // test_module tmod{ "tmod" };
+    FILE* fp_data;
+    int tmp_val;
+    fp_data = fopen(INPUT_FILE_A, "r");
+
     Top top{ "top" };
     sc_start(200, SC_MS);
     return 0;

@@ -24,6 +24,7 @@
     <ProjectGuid>{8f6c4b2f-5fc6-43d7-8df6-42c05d231ca2}</ProjectGuid>
     <RootNamespace>Compression</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Input_Communication</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -145,12 +146,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compression.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Input_Communication.cpp" />
+    <ClCompile Include="Receiver.cpp" />
     <ClCompile Include="Top.cpp" />
+    <ClCompile Include="Transmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Datatypes.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Package.h" />
+    <ClInclude Include="Receiver.h" />
     <ClInclude Include="Top.h" />
+    <ClInclude Include="Transmitter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
