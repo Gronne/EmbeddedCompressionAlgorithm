@@ -30,12 +30,9 @@
     <ClCompile Include="TextFileSensor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Communication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
->>>>>>> 1dc35a4c060c20f2f8396256c23d77ef9bfb31a5
     <ClCompile Include="SensorFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,7 +59,6 @@
     <ClInclude Include="Package.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Communication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,8 +68,6 @@
     <ClInclude Include="IReceiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> 1dc35a4c060c20f2f8396256c23d77ef9bfb31a5
     <ClInclude Include="SensorFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
