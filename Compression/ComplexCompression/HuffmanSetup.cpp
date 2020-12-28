@@ -1,5 +1,11 @@
 #include "HuffmanSetup.h"
 
+HuffmanSetup::HuffmanSetup(sc_module_name name, string text) : sc_module(name)
+{
+    SC_METHOD(buildHuffmanTree)
+    _text = text;
+}
+
 // Function to allocate a new tree node
 Node* HuffmanSetup::getNode(char ch, int freq, Node* left, Node* right)
 {
@@ -19,17 +25,17 @@ bool HuffmanSetup::isLeaf(Node* root) {
 }
 
 
-void HuffmanSetup::buildHuffmanTree(string text)
+void HuffmanSetup::buildHuffmanTree()
 {
     // base case: empty string
-    if (text == EMPTY_STRING) {
+    if (_text == EMPTY_STRING) {
         return;
     }
 
     // count frequency of appearance of each character
     // and store it in a map
     unordered_map<char, int> freq;
-    for (char ch : text) {
+    for (char ch : _text) {
         freq[ch]++;
     }
 

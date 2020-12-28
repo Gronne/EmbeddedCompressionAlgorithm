@@ -3,6 +3,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
+#include "systemc.h"
 using namespace std;
 
 #define EMPTY_STRING ""
@@ -25,12 +26,15 @@ struct comp
     }
 };
 
-class HuffmanSetup
+class HuffmanSetup: public sc_module
 {
 public:
+    HuffmanSetup(sc_module_name name, string text);
+    SC_HAS_PROCESS(HuffmanSetup);
     Node* getNode(char ch, int freq, Node* left, Node* right);
     bool isLeaf(Node* root);
-    void buildHuffmanTree(string text);
+    void buildHuffmanTree();
+    string _text;
     unordered_map<char, string> _huffmanCode;
     Node* _root;
 };
