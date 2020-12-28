@@ -7,9 +7,11 @@ class HuffmanCompressor
 {
 public:
 	HuffmanCompressor(HuffmanSetup* _setup);
-	void compress(string text);
-	void encode(Node* root, string str, unordered_map<char, string>& huffmanCode, HuffmanSetup* _setup);
-	void buildHuffmanTree(HuffmanSetup* _setup, string text);
+	string compress(string text);
+	void encode(Node* root, string str);
+	string buildHuffmanTree(HuffmanSetup* _setup, string text);
+	Node* _root;
+	unordered_map<char, string> _huffmanCode;
 private:
 	HuffmanSetup* _setup;
 };

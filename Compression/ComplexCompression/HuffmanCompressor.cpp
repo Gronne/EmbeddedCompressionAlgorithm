@@ -3,58 +3,38 @@
 
 
 
-void HuffmanCompressor::compress(string text) {
+string HuffmanCompressor::compress(string text) {
     HuffmanSetup* start = _setup;
 
-    buildHuffmanTree(start, text);
+    string encodestr = buildHuffmanTree(start, text);
+    return encodestr;
 }
 
 
 // Traverse the Huffman Tree and store Huffman Codes in a map.
-void HuffmanCompressor::encode(Node* root, string str, unordered_map<char, string>& huffmanCode, HuffmanSetup* start)
+void HuffmanCompressor::encode(Node* root, string str)
 {
     if (root == nullptr) {
         return;
     }
 
     // found a leaf node
-    if (start->isLeaf(root)) {
-        huffmanCode[root->ch] = (str != EMPTY_STRING) ? str : "1";
+    if (_setup->isLeaf(root)) {
+        _huffmanCode[root->ch] = (str != EMPTY_STRING) ? str : "1";
     }
 
-    encode(root->left, str + "0", huffmanCode, start);
-    encode(root->right, str + "1", huffmanCode,start );
+    encode(root->left, str + "0");
+    encode(root->right, str + "1");
 }
 
-//// Traverse the Huffman Tree and decode the encoded string
-//void decode(Node* root, int& index, string str)
-//{
-//    if (root == nullptr) {
-//        return;
-//    }
-//
-//    // found a leaf node
-//    if (isLeaf(root)) {
-//        cout << root->ch;
-//        return;
-//    }
-//
-//    index++;
-//
-//    if (str[index] == '0') {
-//        decode(root->left, index, str);
-//    }
-//    else {
-//        decode(root->right, index, str);
-//    }
-//}
+
 
 // Builds Huffman Tree and decodes the given input text
-void HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
+string HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
 {
     // base case: empty string
     if (text == EMPTY_STRING) {
-        return;
+        return text;
     }
 
     // count frequency of appearance of each character
@@ -70,7 +50,7 @@ void HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
     // Create a leaf node for each character and add it
     // to the priority queue.
     for (auto pair : freq) {
-        pq.push(start->getNode(pair.first, pair.second, nullptr, nullptr));
+        pq.push(_setup->getNode(pair.first, pair.second, nullptr, nullptr));
     }
 
     // do till there is more than one node in the queue
@@ -92,15 +72,14 @@ void HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
     }
 
     // root stores pointer to the root of Huffman Tree
-    Node* root = pq.top();
+    _root = pq.top();
 
     // Traverse the Huffman Tree and store Huffman Codes
     // in a map. Also print them
-    unordered_map<char, string> huffmanCode;
-    encode(root, EMPTY_STRING, huffmanCode, start);
+    encode(_root, EMPTY_STRING);
 
     cout << "Huffman Codes are:\n" << '\n';
-    for (auto pair : huffmanCode) {
+    for (auto pair : _huffmanCode) {
         cout << pair.first << " " << pair.second << '\n';
     }
 
@@ -109,28 +88,11 @@ void HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
     // Print encoded string
     string str;
     for (char ch : text) {
-        str += huffmanCode[ch];
+        str += _huffmanCode[ch];
     }
 
     cout << "\nEncoded string is:\n" << str << '\n';
-    //cout << "\nDecoded string is:\n";
-
-    //if (isLeaf(root))
-    //{
-    //    // Special case: For input like a, aa, aaa, etc.
-    //    while (root->freq--) {
-    //        cout << root->ch;
-    //    }
-    //}
-    //else
-    //{
-    //    // Traverse the Huffman Tree again and this time,
-    //    // decode the encoded string
-    //    int index = -1;
-    //    while (index < (int)str.size() - 1) {
-    //        decode(root, index, str);
-    //    }
-    //}
+    return str;
 }
 
 HuffmanCompressor::HuffmanCompressor(HuffmanSetup* setup)
