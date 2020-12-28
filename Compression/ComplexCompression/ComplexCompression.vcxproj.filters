@@ -13,9 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\SimpleCompression">
+      <UniqueIdentifier>{13b83dfc-7c8e-453f-a8b9-ed7a0c3062d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SimpleCompression">
+      <UniqueIdentifier>{23269ff6-981c-4ca9-986d-23fd49025ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ComplexCompression">
+      <UniqueIdentifier>{1322d00b-47d0-4e8c-9b5b-6efde709640e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ComplexCompression">
+      <UniqueIdentifier>{b9a1a341-d142-4067-936f-406a07a262da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ComplexCompression.cpp">
+    <ClCompile Include="Compression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compression", "Compression\Compression.vcxproj", "{8F6C4B2F-5FC6-43D7-8DF6-42C05D231CA2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input_Communication", "Compression\Compression.vcxproj", "{8F6C4B2F-5FC6-43D7-8DF6-42C05D231CA2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleCompression", "SimpleCompression\SimpleCompression.vcxproj", "{907C92E4-1675-4425-B5DE-D6909F323728}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComplexCompression", "ComplexCompression\ComplexCompression.vcxproj", "{BA49925D-9847-4772-B5B9-D665194FE1AE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compression", "ComplexCompression\ComplexCompression.vcxproj", "{BA49925D-9847-4772-B5B9-D665194FE1AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +23,6 @@ Global
 		{8F6C4B2F-5FC6-43D7-8DF6-42C05D231CA2}.Release|x64.Build.0 = Release|x64
 		{8F6C4B2F-5FC6-43D7-8DF6-42C05D231CA2}.Release|x86.ActiveCfg = Release|Win32
 		{8F6C4B2F-5FC6-43D7-8DF6-42C05D231CA2}.Release|x86.Build.0 = Release|Win32
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Debug|x64.ActiveCfg = Debug|x64
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Debug|x64.Build.0 = Debug|x64
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Debug|x86.ActiveCfg = Debug|Win32
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Debug|x86.Build.0 = Debug|Win32
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Release|x64.ActiveCfg = Release|x64
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Release|x64.Build.0 = Release|x64
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Release|x86.ActiveCfg = Release|Win32
-		{907C92E4-1675-4425-B5DE-D6909F323728}.Release|x86.Build.0 = Release|Win32
 		{BA49925D-9847-4772-B5B9-D665194FE1AE}.Debug|x64.ActiveCfg = Debug|x64
 		{BA49925D-9847-4772-B5B9-D665194FE1AE}.Debug|x64.Build.0 = Debug|x64
 		{BA49925D-9847-4772-B5B9-D665194FE1AE}.Debug|x86.ActiveCfg = Debug|Win32
