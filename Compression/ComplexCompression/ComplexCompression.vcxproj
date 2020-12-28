@@ -146,6 +146,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Compression.cpp" />
+    <ClCompile Include="HuffmanCompressor.cpp" />
+    <ClCompile Include="HuffmanDecompressor.cpp" />
+    <ClCompile Include="HuffmanSetup.cpp" />
+    <ClCompile Include="PredictiveCompressor.cpp" />
+    <ClCompile Include="PredictiveDecompressor.cpp" />
+    <ClCompile Include="PredictiveSetup.cpp" />
+    <ClCompile Include="Top.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HuffmanCompressor.h" />
+    <ClInclude Include="HuffmanDecompressor.h" />
+    <ClInclude Include="HuffmanSetup.h" />
+    <ClInclude Include="PredictiveCompressor.h" />
+    <ClInclude Include="PredictiveDecompressor.h" />
+    <ClInclude Include="PredictiveSetup.h" />
+    <ClInclude Include="Top.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

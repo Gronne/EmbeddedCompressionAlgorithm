@@ -2,10 +2,18 @@
 //
 
 #include <iostream>
+#include "HuffmanCompressor.h"
+#include "HuffmanSetup.h"
 
+// Huffman coding algorithm
 int main()
 {
-    std::cout << "Hello World!\n";
+    string text = "Huffman coding is a data compression algorithm.";
+    HuffmanSetup* setup = new HuffmanSetup();
+    HuffmanCompressor* compressor = new HuffmanCompressor(setup);
+    compressor->compress(text);
+
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

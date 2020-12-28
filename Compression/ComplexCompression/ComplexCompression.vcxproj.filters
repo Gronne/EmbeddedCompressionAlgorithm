@@ -30,5 +30,49 @@
     <ClCompile Include="Compression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HuffmanSetup.cpp">
+      <Filter>Source Files\SimpleCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="PredictiveSetup.cpp">
+      <Filter>Source Files\ComplexCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="HuffmanCompressor.cpp">
+      <Filter>Source Files\SimpleCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="HuffmanDecompressor.cpp">
+      <Filter>Source Files\SimpleCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="PredictiveCompressor.cpp">
+      <Filter>Source Files\ComplexCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="PredictiveDecompressor.cpp">
+      <Filter>Source Files\ComplexCompression</Filter>
+    </ClCompile>
+    <ClCompile Include="Top.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HuffmanSetup.h">
+      <Filter>Header Files\SimpleCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="PredictiveSetup.h">
+      <Filter>Header Files\ComplexCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="HuffmanCompressor.h">
+      <Filter>Header Files\SimpleCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="HuffmanDecompressor.h">
+      <Filter>Header Files\SimpleCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="PredictiveCompressor.h">
+      <Filter>Header Files\ComplexCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="PredictiveDecompressor.h">
+      <Filter>Header Files\ComplexCompression</Filter>
+    </ClInclude>
+    <ClInclude Include="Top.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

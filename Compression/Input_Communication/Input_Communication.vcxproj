@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8f6c4b2f-5fc6-43d7-8df6-42c05d231ca2}</ProjectGuid>
+    <ProjectGuid>{B3B93046-7654-47F4-B5CC-B2A59DE4635C}</ProjectGuid>
     <RootNamespace>Compression</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Input_Communication</ProjectName>
