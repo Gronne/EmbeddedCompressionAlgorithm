@@ -4,6 +4,7 @@
 #include <iostream>
 #include "HuffmanCompressor.h"
 #include "HuffmanSetup.h"
+#include "HuffmanDecompressor.h"
 
 // Huffman coding algorithm
 int main()
@@ -11,7 +12,27 @@ int main()
     string text = "Huffman coding is a data compression algorithm.";
     HuffmanSetup* setup = new HuffmanSetup();
     HuffmanCompressor* compressor = new HuffmanCompressor(setup);
-    compressor->compress(text);
+    HuffmanDecompressor* decompressor = new HuffmanDecompressor(setup);
+    // wait for sample size
+    string encodestr = compressor->compress(text);
+
+    decompressor->Decompressor(compressor->_root, encodestr);
+
+    cout << "\nHuffman Codes are:\n" << '\n';
+    for (auto pair : compressor->_huffmanCode) {
+        cout << pair.first << " " << pair.second << '\n';
+    }
+
+    cout << "\nOriginal string is:\n" << "Hello world" << '\n';
+
+    string str;
+    for (char ch : "Hello world") {
+        str += compressor->_huffmanCode[ch];
+    }
+
+    cout << "\nEncoded string is:\n" << str << '\n';
+
+    decompressor->Decompressor(compressor->_root, str);
 
     return 0;
 }
