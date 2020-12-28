@@ -37,12 +37,13 @@ void TextFileSensor::Measure()
 				data->data = tmp_final;
 				out.write(data);
 				wait(20, SC_NS);
-				/* for (size_t i = 0; i < strlen(data->data); i++)
+				
+				/*for (size_t i = 0; i < strlen(data->data); i++)
 				{
 					cout << data->data[i];
 				}
-				cout << endl;
-				*/
+				cout << endl;*/
+				
 				// reset charCounter, tmp_final.
 				charCounter = 0;
 				memset(tmp_final, 0, 55);

@@ -11,10 +11,6 @@ public:
     sc_fifo<Package*> *fifoInputData;
     sc_fifo<Package*> *fifoOutputData;
 
-    sc_fifo<Package*>* fifoCommunication;
-    ITransmitter<Package*>* transmitter;
-    IReceiver<Package*>* receiver;
-
     ISensor<Package*>* sensor;
     Communication* communication;
     

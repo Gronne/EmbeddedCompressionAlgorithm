@@ -27,5 +27,5 @@ void Receiver::WriteData()
 	}
 	cout << endl;
 	
-	out.write(_data);
+	//out.write(_data); this is uncommented for testing purposes, when something is hooked up it should work.
 }
