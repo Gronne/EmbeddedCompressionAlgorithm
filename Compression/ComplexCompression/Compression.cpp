@@ -6,17 +6,19 @@
 #include "HuffmanSetup.h"
 #include "HuffmanDecompressor.h"
 
+
 // Huffman coding algorithm
-int main()
+int sc_main(int argc, char** argv)
 {
     string text = "Huffman coding is a data compression algorithm.";
-    HuffmanSetup* setup = new HuffmanSetup();
-    HuffmanCompressor* compressor = new HuffmanCompressor(setup);
-    HuffmanDecompressor* decompressor = new HuffmanDecompressor(setup);
+    HuffmanSetup* setup = new HuffmanSetup("HuffmanSetup",text);
+    HuffmanCompressor* compressor = new HuffmanCompressor("HuffmanCompressor",setup,text);
     // wait for sample size
-    string encodestr = compressor->compress(text);
+    compressor->compress();
 
-    decompressor->Decompressor(compressor->_root, encodestr);
+
+    HuffmanDecompressor* decompressor = new HuffmanDecompressor("HuffmanDecompressor", setup, compressor->_root, compressor->_encodestr);
+    decompressor->Decompressor();
 
     cout << "\nHuffman Codes are:\n" << '\n';
     for (auto pair : compressor->_huffmanCode) {
@@ -31,19 +33,8 @@ int main()
     }
 
     cout << "\nEncoded string is:\n" << str << '\n';
-
-    decompressor->Decompressor(compressor->_root, str);
-
+    decompressor->ReadData(str);
+    decompressor->Decompressor();
+    sc_start(200, SC_MS);
     return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

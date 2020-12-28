@@ -2,14 +2,19 @@
 #include "HuffmanSetup.h"
 #include <iostream>
 #include <string>
+#include "systemc.h"
 using namespace std;
-class HuffmanDecompressor
+class HuffmanDecompressor : public sc_module
 {
 public:
-	HuffmanDecompressor(HuffmanSetup* _setup);
-	void Decompressor(Node* root, string str);
+	HuffmanDecompressor(sc_module_name name, HuffmanSetup* _setup, Node* root, string str);
+	SC_HAS_PROCESS(HuffmanDecompressor);
+	void Decompressor();
 	void decode(Node* root, int& index, string str);
+	void ReadData(string str);
 private: 
+	Node* _root;
+	string _encodestr;
 	HuffmanSetup* _setup;
 };
 

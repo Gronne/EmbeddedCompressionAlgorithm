@@ -3,11 +3,13 @@
 
 
 
-string HuffmanCompressor::compress(string text) {
+
+
+void HuffmanCompressor::compress() {
     HuffmanSetup* start = _setup;
 
-    string encodestr = buildHuffmanTree(start, text);
-    return encodestr;
+    _encodestr = buildHuffmanTree(start, _creationstring);
+    
 }
 
 
@@ -95,7 +97,9 @@ string HuffmanCompressor::buildHuffmanTree(HuffmanSetup* start,string text)
     return str;
 }
 
-HuffmanCompressor::HuffmanCompressor(HuffmanSetup* setup)
+HuffmanCompressor::HuffmanCompressor(sc_module_name name, HuffmanSetup* setup, string creationstring) : sc_module(name)
 {
+    SC_THREAD(compress);
+    _creationstring = creationstring;
     _setup = setup;
 }
