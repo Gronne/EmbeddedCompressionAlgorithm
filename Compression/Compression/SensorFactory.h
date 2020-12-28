@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __SENSORFACTORY_H_INCLUDED__   
+#define __SENSORFACTORY_H_INCLUDED__   
 #include "ISensor.h"
 #include "Package.h"
 #include "Datatypes.h"
@@ -10,4 +12,4 @@ public:
 private:
 
 };
-
+#endif

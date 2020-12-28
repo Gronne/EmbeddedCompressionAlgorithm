@@ -2,10 +2,24 @@
 #include "Datatypes.h"
 #include "TextFileSensor.h"
 #include "SensorFactory.h"
-Top::Top(sc_module_name name) : sc_module(name)  {
+#include "Transmitter.h"
+#include "Receiver.h"
 
-	fifo = new sc_fifo<Package*>("fifi");
-	sensor = SensorFactory::CreateTextFileSensor(fifo);
+Top::Top(sc_module_name name) : sc_module(name)  {
+	fifoInputData = new sc_fifo<Package*>("fifoInputData");
+	fifoCommunication = new sc_fifo<Package*>("fifoCommunication");
+	fifoOutputData = new sc_fifo<Package*>("fifoOutputData");
+
+	sensor = SensorFactory::CreateTextFileSensor(fifoInputData);
+	
+	transmitter = new Transmitter("transmitter");
+	transmitter->in(*fifoInputData);
+	transmitter->out(*fifoCommunication);
+	receiver = new Receiver("receiver");
+	receiver->in(*fifoCommunication);
+	receiver->out(*fifoOutputData);
+
+
 	//sensor = new TextFileSensor("sensor", (char*)INPUT_FILE_A);
 	//sensor->out(fifo);
 	//FILE* fp_data;
@@ -24,4 +38,5 @@ Top::Top(sc_module_name name) : sc_module(name)  {
 
 Top:: ~Top() {
 	delete sensor;
+	delete transmitter;
 }

@@ -1,14 +1,19 @@
 #pragma once
+#ifndef __TRANSMITTER_H_INCLUDED__   
+#define __TRANSMITTER_H_INCLUDED__
 #include "ITransmitter.h"
-template <class T>
-class Transmitter : public ITransmitter<T>, public sc_module {
+#include "Package.h"
+class Transmitter : public ITransmitter<Package*>, public sc_module {
 public:
-    sc_fifo_out<T*> out;
-    sc_fifo_in<T*> in;
     Transmitter(sc_module_name name);
     SC_HAS_PROCESS(Transmitter);
 private:
+    Package* _data;
     virtual void Transmit();
     virtual void ReadData();
 };
+
+
+
+#endif
 

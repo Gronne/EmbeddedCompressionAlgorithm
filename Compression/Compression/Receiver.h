@@ -1,15 +1,17 @@
 #pragma once
+#ifndef __RECEIVER_H_INCLUDED__   
+#define __RECEIVER_H_INCLUDED__   
 #include "IReceiver.h"
-template <class T>
-class Receiver : public IReceiver<T>, public sc_module
+#include "Package.h"
+class Receiver : public IReceiver<Package*>, public sc_module
 {
 public:
-	sc_fifo_out<T*> out;
-	sc_fifo_in<T*> in;
 	Receiver(sc_module_name name);
 	SC_HAS_PROCESS(Receiver);
 private:
+	Package* _data;
 	virtual void Receive();
 	virtual void WriteData();
 };
 
+#endif

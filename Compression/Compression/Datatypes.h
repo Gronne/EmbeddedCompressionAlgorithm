@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __DATATYPES_H_INCLUDED__   
+#define __DATATYPES_H_INCLUDED__   
 
 #define CHANNEL_BITS 4 // Number of channel wires
 #define ERROR_BITS 2 // Number of error wires
@@ -8,3 +10,5 @@
 
 #define INPUT_FILE_A	"../Green_Eggs_and_ham.txt"		// Input data file tab seperated (Fixed point)
 #define INPUT_CSV_FILE_A	"../EKG_values.CSV"		// Input data from CSV komma seperated (Fixed point)
+
+#endif

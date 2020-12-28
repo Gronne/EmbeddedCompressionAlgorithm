@@ -1,27 +1,25 @@
 #include "Transmitter.h"
-
-template<class T>
-Transmitter<T>::Transmitter(sc_module_name name)
+Transmitter::Transmitter(sc_module_name name)
 {
-	SC_THREAD(Transmit);
+	_data = new Package();
+	
 	SC_THREAD(ReadData);
 }
 
-template<class T>
-void Transmitter<T>::Transmit()
-{
-	while (true)
-	{
 
-	}
+void Transmitter::Transmit()
+{
+	out.write(_data);
 }
 
-template<class T>
-void Transmitter<T>::ReadData()
+
+void Transmitter::ReadData()
 {
 	while (true)
 	{
-		std::cout << "data: " << in.read() << " Simulation time: " << sc_time_stamp() << endl;
 		wait(in.data_written_event());
+		_data = in.read();
+		Transmit();
+		
 	}
 }

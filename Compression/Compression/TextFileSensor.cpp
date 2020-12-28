@@ -1,5 +1,4 @@
 #include "TextFileSensor.h"
-#include "Datatypes.h"
 void TextFileSensor::Measure()
 {
 	// declare temp variables
@@ -37,6 +36,7 @@ void TextFileSensor::Measure()
 				// write the data to the fifo
 				data->data = tmp_final;
 				out.write(data);
+				wait(20, SC_NS);
 				/* for (size_t i = 0; i < strlen(data->data); i++)
 				{
 					cout << data->data[i];
@@ -47,6 +47,7 @@ void TextFileSensor::Measure()
 				charCounter = 0;
 				memset(tmp_final, 0, 55);
 				data = new Package();
+				
 			}
 		}
 
