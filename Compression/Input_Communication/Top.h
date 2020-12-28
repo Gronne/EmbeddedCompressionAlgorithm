@@ -4,19 +4,18 @@
 #include <systemc.h>
 #include "Package.h"
 #include "ISensor.h"
-#include "ITransmitter.h"
-#include "IReceiver.h"
+#include "Communication.h"
+
 class Top : public sc_module {
 public:
     sc_fifo<Package*> *fifoInputData;
-    sc_fifo<Package*> *fifoCommunication;
     sc_fifo<Package*> *fifoOutputData;
 
     ISensor<Package*>* sensor;
-    ITransmitter<Package*>* transmitter;
-    IReceiver<Package*>* receiver;
-    SC_HAS_PROCESS(Top);
+    Communication* communication;
+    
     Top(sc_module_name name);
+    SC_HAS_PROCESS(Top);
     ~Top();
 private:
 };
