@@ -8,8 +8,10 @@ public:
 	PredictiveSetup() {};
 	~PredictiveSetup() {};
 
-	bool setup(T) { return false; };
+	bool setup(T) { 
+		return false; 
+	};
 
 private:
-
+	int _counter = 0;
 };

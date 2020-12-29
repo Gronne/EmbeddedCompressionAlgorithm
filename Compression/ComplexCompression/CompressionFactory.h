@@ -13,11 +13,11 @@ public:
 
 	template<class T>
 	static Compression<T, ComplexCompressT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
-		return new Compression<T, ComplexCompressT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
+		return new Compression<T, ComplexCompressT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T, ComplexCompressT>(), new PredictiveDecompressor<T, ComplexCompressT>());
 	};
 
 	template<class T>
 	static Compression<T, SimpleCompressT>* MakeSimpleCompression(sc_fifo<T>* comInPipe, sc_fifo<SimpleCompressT>* comOutPipe, sc_fifo<SimpleCompressT>* decomInPipe, sc_fifo<T>* decomOutPipe) {
-		return new Compression<T, SimpleCompressT>("SimpleCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
+		return new Compression<T, SimpleCompressT>("SimpleCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T, SimpleCompressT>(), new PredictiveDecompressor<T, SimpleCompressT>());
 	};
 };
