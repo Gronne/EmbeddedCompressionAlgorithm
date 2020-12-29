@@ -25,7 +25,6 @@ protected:
 		{
 			wait(_internalPipe->data_written_event());
 			T data = _internalPipe->read();
-			std::cout << "Read: " << data << std::endl;
 			_receiverPipe->write(data);
 		}
 	}

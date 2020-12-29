@@ -23,7 +23,6 @@ protected:
         {
             wait(_transmitterPipe->data_written_event());
             T data = _transmitterPipe->read();
-            std::cout << "Write: " << data << std::endl;
             _internalPipe->write(data);
         }
     };
