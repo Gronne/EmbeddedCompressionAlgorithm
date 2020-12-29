@@ -2,8 +2,9 @@
 
 HuffmanSetup::HuffmanSetup(sc_module_name name, string text) : sc_module(name)
 {
-    SC_METHOD(buildHuffmanTree)
     _text = text;
+    SC_METHOD(buildHuffmanTree)
+    
 }
 
 // Function to allocate a new tree node

@@ -7,7 +7,7 @@ using namespace std;
 class HuffmanDecompressor : public sc_module
 {
 public:
-	HuffmanDecompressor(sc_module_name name, HuffmanSetup* _setup, Node* root, string str);
+	HuffmanDecompressor(sc_module_name name, HuffmanSetup* _setup, Node* root);
 	SC_HAS_PROCESS(HuffmanDecompressor);
 	void Decompressor();
 	void decode(Node* root, int& index, string str);

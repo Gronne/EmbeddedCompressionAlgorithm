@@ -1,12 +1,11 @@
 #include "HuffmanDecompressor.h"
 
 
-HuffmanDecompressor::HuffmanDecompressor(sc_module_name name, HuffmanSetup* setup, Node* root, string str) : sc_module(name)
+HuffmanDecompressor::HuffmanDecompressor(sc_module_name name, HuffmanSetup* setup, Node* root) : sc_module(name)
 {
     SC_THREAD(Decompressor);
     _setup = setup;
     _root = root;
-    _encodestr = str;
 }
 
 // Traverse the Huffman Tree and decode the encoded string
@@ -40,12 +39,15 @@ void HuffmanDecompressor::ReadData(string str)
 void HuffmanDecompressor::Decompressor()
 {
     cout << "\nDecoded string is:\n";
+    if (_setup->_root == nullptr) {
+        return;
+    }
 
-    if (_setup->isLeaf(_root))
+    if (_setup->isLeaf(_setup->_root))
     {
         // Special case: For input like a, aa, aaa, etc.
-        while (_root->freq--) {
-            cout << _root->ch;
+        while (_setup->_root->freq--) {
+            cout << _setup->_root->ch;
         }
     }
     else
@@ -54,7 +56,7 @@ void HuffmanDecompressor::Decompressor()
         // decode the encoded string
         int index = -1;
         while (index < (int)_encodestr.size() - 1) {
-            decode(_root, index, _encodestr);
+            decode(_setup->_root, index, _encodestr);
         }
     }
 }
