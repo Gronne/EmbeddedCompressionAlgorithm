@@ -163,6 +163,7 @@
     <ClInclude Include="Package.h" />
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="SensorFactory.h" />
+    <ClInclude Include="SinusSensor.h" />
     <ClInclude Include="TextFileSensor.h" />
     <ClInclude Include="Top.h" />
     <ClInclude Include="Transmitter.h" />

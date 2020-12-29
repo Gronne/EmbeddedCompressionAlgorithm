@@ -5,36 +5,49 @@
 #include "HuffmanCompressor.h"
 #include "HuffmanSetup.h"
 #include "HuffmanDecompressor.h"
-
+#include "Compressor.h"
+#include "CompressionFactory.h"
+#include "../Input_Communication/SensorFactory.h"
+#include "../Input_Communication/Communication.h"
 
 // Huffman coding algorithm
 int sc_main(int argc, char** argv)
 {
-    string text = "Huffman coding is a data compression algorithm.";
-    HuffmanSetup* setup = new HuffmanSetup("HuffmanSetup",text);
-    HuffmanCompressor* compressor = new HuffmanCompressor("HuffmanCompressor",setup,text);
-    // wait for sample size
-    compressor->compress();
+    //---------Pipes---------
+    //Simple
+    sc_fifo<SensorFactory::TextFileSensorSubT> sensorToCompressorSimplePipe;
+    sc_fifo<CompressionFactory::SimpleCommunicationT> compressorToTransmitterSimplePipe;
+    sc_fifo<CompressionFactory::SimpleCommunicationT> receiverToDecompressorSimplePipe;
+    sc_fifo<SensorFactory::TextFileSensorSubT> decompressorOutSimplePipe;
+    //Complex 
+    sc_fifo<SensorFactory::SinusSensorSubT> sensorToCompressorComplexPipe;
+    sc_fifo<CompressionFactory::ComplexCommunicationT> compressorToTransmitterComplexPipe;
+    sc_fifo<CompressionFactory::ComplexCommunicationT> receiverToDecompressorComplexPipe;
+    sc_fifo<SensorFactory::SinusSensorSubT> decompressorOutComplexPipe;
 
 
-    HuffmanDecompressor* decompressor = new HuffmanDecompressor("HuffmanDecompressor", setup, compressor->_root, compressor->_encodestr);
-    decompressor->Decompressor();
+    //--------Filters--------
+    //Simple
+    SensorFactory::TextFileSensorT* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
+    Communication<CompressionFactory::SimpleCommunicationT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
+    //Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCommunicationT> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
+    //Complex
+    SensorFactory::SinusSensorT* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
+    Communication<CompressionFactory::ComplexCommunicationT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
+    //Compression<SensorFactory::SinusSensorSubT, CompressionFactory::ComplexCommunicationT> *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
 
-    cout << "\nHuffman Codes are:\n" << '\n';
-    for (auto pair : compressor->_huffmanCode) {
-        cout << pair.first << " " << pair.second << '\n';
-    }
 
-    cout << "\nOriginal string is:\n" << "Hello world" << '\n';
-
-    string str;
-    for (char ch : "Hello world") {
-        str += compressor->_huffmanCode[ch];
-    }
-
-    cout << "\nEncoded string is:\n" << str << '\n';
-    decompressor->ReadData(str);
-    decompressor->Decompressor();
+    //---------Start---------
     sc_start(200, SC_MS);
+
+    //---------Clean---------
+    delete textSensor;
+    delete sinusSensor;
+    //delete simpleCompression;
+    //delete complexCompression;
+
+    //Terminate
     return 0;
 }
+
+
