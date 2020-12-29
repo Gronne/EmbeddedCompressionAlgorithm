@@ -8,16 +8,16 @@
 
 class CompressionFactory {
 public:
-	using SimpleCommunicationT = int;
-	using ComplexCommunicationT = int;
+	using SimpleCompressT = int;
+	using ComplexCompressT = int;
 
 	template<class T>
-	static Compression<T, ComplexCommunicationT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCommunicationT> *comOutPipe, sc_fifo<ComplexCommunicationT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
-		return new Compression<T, ComplexCommunicationT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
+	static Compression<T, ComplexCompressT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
+		return new Compression<T, ComplexCompressT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
 	};
 
 	template<class T>
-	static Compression<T, SimpleCommunicationT>* MakeSimpleCompression(sc_fifo<T>* comInPipe, sc_fifo<SimpleCommunicationT>* comOutPipe, sc_fifo<SimpleCommunicationT>* decomInPipe, sc_fifo<T>* decomOutPipe) {
-		return new Compression<T, SimpleCommunicationT>("SimpleCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
+	static Compression<T, SimpleCompressT>* MakeSimpleCompression(sc_fifo<T>* comInPipe, sc_fifo<SimpleCompressT>* comOutPipe, sc_fifo<SimpleCompressT>* decomInPipe, sc_fifo<T>* decomOutPipe) {
+		return new Compression<T, SimpleCompressT>("SimpleCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T>(), new PredictiveDecompressor<T>());
 	};
 };

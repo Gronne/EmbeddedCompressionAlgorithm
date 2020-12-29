@@ -16,25 +16,25 @@ int sc_main(int argc, char** argv)
     //---------Pipes---------
     //Simple
     sc_fifo<SensorFactory::TextFileSensorSubT> sensorToCompressorSimplePipe;
-    sc_fifo<CompressionFactory::SimpleCommunicationT> compressorToTransmitterSimplePipe;
-    sc_fifo<CompressionFactory::SimpleCommunicationT> receiverToDecompressorSimplePipe;
+    sc_fifo<CompressionFactory::SimpleCompressT> compressorToTransmitterSimplePipe;
+    sc_fifo <CompressionFactory::SimpleCompressT> receiverToDecompressorSimplePipe;
     sc_fifo<SensorFactory::TextFileSensorSubT> decompressorOutSimplePipe;
     //Complex 
     sc_fifo<SensorFactory::SinusSensorSubT> sensorToCompressorComplexPipe;
-    sc_fifo<CompressionFactory::ComplexCommunicationT> compressorToTransmitterComplexPipe;
-    sc_fifo<CompressionFactory::ComplexCommunicationT> receiverToDecompressorComplexPipe;
+    sc_fifo<CompressionFactory::ComplexCompressT> compressorToTransmitterComplexPipe;
+    sc_fifo<CompressionFactory::ComplexCompressT> receiverToDecompressorComplexPipe;
     sc_fifo<SensorFactory::SinusSensorSubT> decompressorOutComplexPipe;
 
 
     //--------Filters--------
     //Simple
     SensorFactory::TextFileSensorT* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
-    Communication<CompressionFactory::SimpleCommunicationT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
-    Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCommunicationT> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
+    Communication<CompressionFactory::SimpleCompressT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
+    Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCompressT> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
     //Complex
     SensorFactory::SinusSensorT* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
-    Communication<CompressionFactory::ComplexCommunicationT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
-    Compression<SensorFactory::SinusSensorSubT, CompressionFactory::ComplexCommunicationT> *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
+    Communication<CompressionFactory::ComplexCompressT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
+    Compression<SensorFactory::SinusSensorSubT, CompressionFactory::ComplexCompressT> *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
 
 
     //---------Start---------
