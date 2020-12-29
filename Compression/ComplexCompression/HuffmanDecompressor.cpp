@@ -1,5 +1,6 @@
 #include "HuffmanDecompressor.h"
 
+#include <stack>
 
 HuffmanDecompressor::HuffmanDecompressor(sc_module_name name, HuffmanSetup* setup, Node* root) : sc_module(name)
 {
@@ -11,24 +12,33 @@ HuffmanDecompressor::HuffmanDecompressor(sc_module_name name, HuffmanSetup* setu
 // Traverse the Huffman Tree and decode the encoded string
 void HuffmanDecompressor::decode(Node* root, int& index, string str)
 {
-    if (root == nullptr) {
-        return;
+    stack<pair<Node*, pair<int&, string>>> stack;
+    stack.push({ root,{index,str }});
+    while (!stack.empty())
+    {
+        pair<Node*, pair<int&,string>> element = stack.top();
+        // Pop a node from stack
+        stack.pop();
+        if (element.first == nullptr) {
+            break;
+        }
+
+        if (_setup->isLeaf(element.first)) {
+            cout << element.first->ch;
+            break;
+        }
+        element.second.first++;
+
+        if (element.second.second[element.second.first] == '0') {
+            if (element.first->left != nullptr)
+                stack.push({ element.first->left,{element.second.first,element.second.second} });
+        }
+        else {
+            if (element.first->right != nullptr)
+                stack.push({ element.first->right,{element.second.first,element.second.second} });
+        }
     }
 
-    // found a leaf node
-    if (_setup->isLeaf(root)) {
-        cout << root->ch;
-        return;
-    }
-
-    index++;
-
-    if (str[index] == '0') {
-        decode(root->left, index, str);
-    }
-    else {
-        decode(root->right, index, str);
-    }
 }
 
 void HuffmanDecompressor::ReadData(string str)
