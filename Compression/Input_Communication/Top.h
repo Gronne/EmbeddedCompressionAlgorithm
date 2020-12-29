@@ -8,15 +8,7 @@
 
 class Top : public sc_module {
 public:
-    sc_fifo<Package*> *fifoInputData;
-    sc_fifo<Package*> *fifoOutputData;
 
-    ISensor<Package*>* sensor;
-    Communication* communication;
-    
-    Top(sc_module_name name);
-    SC_HAS_PROCESS(Top);
-    ~Top();
 private:
 };
 

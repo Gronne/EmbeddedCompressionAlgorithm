@@ -11,7 +11,7 @@ int sc_main(int argc, char** argv)
     //int tmp_val;
     //fp_data = fopen(INPUT_FILE_A, "r");
 
-    Top top{ "top" };
+    //Top top{ "top" };
     sc_start(200, SC_MS);
     return 0;
 }
