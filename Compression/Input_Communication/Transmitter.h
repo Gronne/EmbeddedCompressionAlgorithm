@@ -3,7 +3,6 @@
 #define __TRANSMITTER_H_INCLUDED__
 #include "ITransmitter.h"
 #include "Package.h"
-#include "Communication.h"
 
 template<class T>
 class Transmitter : public ITransmitter, public sc_module {
@@ -14,7 +13,7 @@ public:
         _internalPipe(internalPipe) 
     {
         SC_THREAD(transmit);
-    };
+    }
     SC_HAS_PROCESS(Transmitter);
 
 protected:

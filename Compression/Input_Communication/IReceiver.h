@@ -4,7 +4,7 @@
 #include "systemc.h"
 
 class IReceiver {
-public:
+protected:
 	virtual void receive() = 0;
 };
 #endif
