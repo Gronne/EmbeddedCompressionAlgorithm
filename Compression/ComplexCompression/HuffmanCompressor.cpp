@@ -1,6 +1,6 @@
 #include "HuffmanCompressor.h"
 #include "HuffmanSetup.h"
-
+#include <stdlib.h>
 
 
 
@@ -40,16 +40,25 @@ void HuffmanCompressor::encode(string str)
 // Traverse the Huffman Tree and store Huffman Codes in a map.
 void HuffmanCompressor::encode(Node* root, string str)
 {
-    if (root == nullptr) {
-        return;
-    }
-    // found a leaf node
-    if (_setup->isLeaf(root)) {
-        _huffmanCode[root->ch] = (str != EMPTY_STRING) ? str : "1";
-    }
+    stack<pair<Node*,string>> stack;
+    stack.push({ root,str });
+    while (!stack.empty())
+    {
+        pair<Node*,string> element = stack.top();
+        // Pop a node from stack
+        stack.pop();
+        if (element.first == nullptr) {
+            break;
+        }
 
-    encode(root->left, str + "0");
-    encode(root->right, str + "1");
+        // found a leaf node
+        if (_setup->isLeaf(element.first)) {
+            _huffmanCode[element.first->ch] = (element.second != EMPTY_STRING) ? element.second : "1";
+        }
+
+        stack.push({ root->left, element.second + "0" });
+        stack.push({ root->right, element.second + "1" });
+    }
 }
 
 
