@@ -43,8 +43,8 @@ int sc_main(int argc, char** argv)
     //---------Clean---------
     delete textSensor;
     delete sinusSensor;
-    //delete simpleCompression;
-    //delete complexCompression;
+    delete simpleCompression;
+    delete complexCompression;
 
     //Terminate
     return 0;

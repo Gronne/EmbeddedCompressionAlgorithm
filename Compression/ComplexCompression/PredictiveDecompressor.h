@@ -9,7 +9,13 @@ public:
 	PredictiveDecompressor() {};
 	~PredictiveDecompressor() {};
 
-	DecompressT decode(CompressT) { return DecompressT(); };
+	DecompressT decode(CompressT compressedData) { 
+		return DecompressT(compressedData); 
+	};
+
+	void setModel(ICompressionSetup<DecompressT> *setup) {
+
+	};
 
 private:
 

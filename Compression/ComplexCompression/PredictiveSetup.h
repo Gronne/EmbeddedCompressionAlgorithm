@@ -9,7 +9,7 @@ public:
 	~PredictiveSetup() {};
 
 	bool setup(T) { 
-		return false; 
+		return _counter++>= 10; 
 	};
 
 private:

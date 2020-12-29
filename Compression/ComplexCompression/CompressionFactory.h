@@ -8,8 +8,8 @@
 
 class CompressionFactory {
 public:
-	using SimpleCompressT = int;
-	using ComplexCompressT = int;
+	using SimpleCompressT = SensorFactory::TextFileSensorSubT;
+	using ComplexCompressT = SensorFactory::SinusSensorSubT;
 
 	template<class T>
 	static Compression<T, ComplexCompressT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {

@@ -8,7 +8,13 @@ public:
 	PredictiveCompressor() {};
 	~PredictiveCompressor() {};
 
-	CompressT encode(DecompressT) { return CompressT(); };
+	CompressT encode(DecompressT sensorData) { 
+		return CompressT(sensorData); 
+	};
+
+	void setModel(ICompressionSetup<DecompressT> *setup) {
+
+	};
 
 private:
 

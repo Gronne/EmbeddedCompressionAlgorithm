@@ -22,31 +22,51 @@ public:
         _compressor(compressor),
         _decompressor(decompressor)
     {
-        SC_THREAD(run);
+        SC_THREAD(setup_state);
+        SC_THREAD(decompress_state);
+        dont_initialize();
+        sensitive << decompress_e;
+        SC_THREAD(compress_state);
+        dont_initialize();
+        sensitive << compress_e;
     };
     SC_HAS_PROCESS(Compression);
 
 
 private:
-    void run() {
+    void setup_state() {
         bool status;
         SensorT data;
 
         do{
             wait(_comInPipe->data_written_event());
             data = _comInPipe->read();
-            std::cout << "Compressor: " << data << std::endl;
+            setupDataBuffer.push(data);
             status = _setup->setup(data);
         } while (status == false);
 
+        _compressor->setModel(_setup);
+        _decompressor->setModel(_setup);
+
+        decompress_e.notify();
+
+        while(setupDataBuffer.size() > 0)
+        {
+            data = setupDataBuffer.front();
+            setupDataBuffer.pop();
+            CompressedT dataC = _compressor->encode(data);
+            _comOutPipe->write(dataC);
+        }
+
+        compress_e.notify();
     };
 
-    void sendSetupData() {
-    };
+   
 
-    void compress() {
+    void compress_state() {
         SensorT sensorData;
         CompressedT comData;
+
         while (true) {
             wait(_comInPipe->data_written_event());
             sensorData = _comInPipe->read();
@@ -55,14 +75,16 @@ private:
         }
     }
 
-    void decompress() {
+    void decompress_state() {
         SensorT sensorData;
         CompressedT comData;
+
         while (true) {
             wait(_decomInPipe->data_written_event());
             comData = _decomInPipe->read();
             sensorData = _decompressor->decode(comData);
-            _decomOutPipe->write(sensorData);
+            std::cout << "Received decompressed data: " << sensorData << std::endl;
+            //_decomOutPipe->write(sensorData);
         }
     }
 
@@ -73,6 +95,10 @@ private:
     ICompressionSetup<SensorT> *_setup;
     ICompressionCompress<SensorT, CompressedT> *_compressor;
     ICompressionDecompress<SensorT, CompressedT> *_decompressor;
+
+    std::queue<SensorT> setupDataBuffer;
+    sc_event compress_e;
+    sc_event decompress_e;
 };
 
 
