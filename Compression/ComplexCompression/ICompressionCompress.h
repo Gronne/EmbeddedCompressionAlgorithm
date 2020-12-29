@@ -1,11 +1,11 @@
 #pragma once
 #include "../Input_Communication/Package.h"
 
-template <class T>
+template <class DecompressT, class CompressT>
 class ICompressionCompress
 {
 public:
-	virtual void encode(T) = 0;
+	virtual CompressT encode(DecompressT) = 0;
 
 private:
 

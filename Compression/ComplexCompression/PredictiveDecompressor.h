@@ -2,14 +2,14 @@
 #include "ICompressionDecompress.h"
 
 
-template<class T>
-class PredictiveDecompressor : public ICompressionDecompress<T>
+template<class DecompressT, class CompressT>
+class PredictiveDecompressor : public ICompressionDecompress<DecompressT, CompressT>
 {
 public:
 	PredictiveDecompressor() {};
 	~PredictiveDecompressor() {};
 
-	void decode(T) { };
+	DecompressT decode(CompressT) { return DecompressT(); };
 
 private:
 
