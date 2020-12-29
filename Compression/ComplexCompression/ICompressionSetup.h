@@ -6,7 +6,7 @@ class ICompressionSetup
 {
 public:
 	virtual bool setup(DataT) = 0;
-	virtual ModelT getModel() = 0;
+	virtual ModelT* getModel() = 0;
 private:
 
 

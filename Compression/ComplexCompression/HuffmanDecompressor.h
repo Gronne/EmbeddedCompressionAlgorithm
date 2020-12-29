@@ -6,8 +6,8 @@
 #include <stack>
 #include "ICompressionDecompress.h"
 using namespace std;
-template<class DecompressT, class CompressT>
-class HuffmanDecompressor : public sc_module, public ICompressionDecompress<DecompressT, CompressT>
+template<class DecompressT, class CompressT, class ModelT = Node<typename DecompressT::value_type>>
+class HuffmanDecompressor : public sc_module, public ICompressionDecompress<DecompressT, CompressT, ModelT>
 {
 public:
 	HuffmanDecompressor(sc_module_name name)
@@ -19,14 +19,14 @@ public:
     {
         cout << "\nDecoded string is:\n";
         if (_root == nullptr) {
-            return;
+            return DecompressT();
         }
         DecompressT tmp;
         if (_setup->isLeaf(_root))
         {
             // Special case: For input like a, aa, aaa, etc.
             while (_root->freq--) {
-                return _root->data;
+                return DecompressT({ DecompressT::value_type(_root->data) });
             }
         }
         else
@@ -42,13 +42,13 @@ public:
         }
         return tmp;
     }
-    DecompressT decode(Node<iterator_for<DecompressT>>* root, int& index, string str)
+    DecompressT decode(ModelT* root, int& index, string str)
     {
-        stack<pair<Node<iterator_for<DecompressT>>*, pair<int&, string>>> stack;
+        stack<pair<ModelT*, pair<int&, string>>> stack;
         stack.push({ root,{index,str } });
         while (!stack.empty())
         {
-            pair<Node<iterator_for<DecompressT>>*, pair<int&, string>> element = stack.top();
+            pair<ModelT*, pair<int&, string>> element = stack.top();
             // Pop a node from stack
             stack.pop();
             if (element.first == nullptr) {
@@ -56,7 +56,7 @@ public:
             }
 
             if (_setup->isLeaf(element.first)) {
-                return element.first->data;
+                return DecompressT({DecompressT::value_type(element.first->data)});
                 break;
             }
             element.second.first++;
@@ -73,12 +73,12 @@ public:
 
     }
 
-	void setModel(ICompressionSetup<DecompressT,Node<iterator_for<DecompressT>>*>* setup) {
+	void setModel(ICompressionSetup<DecompressT,ModelT>* setup) {
         _setup = (HuffmanSetup<DecompressT>*)setup;
         _root = _setup->getModel();
 	};
 private: 
-	Node<iterator_for<DecompressT>>* _root;
+	ModelT* _root;
     HuffmanSetup<DecompressT>* _setup;
 };
 

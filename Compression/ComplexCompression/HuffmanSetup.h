@@ -35,19 +35,20 @@ struct comp
     }
 };
 
-template <class T>
-class HuffmanSetup: public sc_module, public ICompressionSetup<T,Node<iterator_for<T>>>
+template <class T, class ModelT = Node<typename T::value_type>>
+class HuffmanSetup: public sc_module, public ICompressionSetup<T,ModelT>
 {
 public:
+
     HuffmanSetup(sc_module_name name) : sc_module(name)
     {
         //SC_METHOD(setup);
     }
     SC_HAS_PROCESS(HuffmanSetup);
     // Function to allocate a new tree node
-    Node<iterator_for<T>>* getNode(T data, int freq, Node<iterator_for<T>>* left, Node<iterator_for<T>>* right)
+    ModelT* getNode(typename T::value_type data, int freq, ModelT* left, ModelT* right)
     {
-        Node<iterator_for<T>>* node = new Node<iterator_for<T>>();
+        ModelT* node = new ModelT();
         node->data = data;
         node->freq = freq;
         node->left = left;
@@ -55,7 +56,7 @@ public:
         return node;
     }
     // Utility function to check if Huffman Tree contains only a single node
-    bool isLeaf(Node<iterator_for<T>>* root)
+    bool isLeaf(ModelT* root)
     {
         return root->left == nullptr && root->right == nullptr;
     }
@@ -64,13 +65,13 @@ public:
 
         // count frequency of appearance of each character
         // and store it in a map
-        unordered_map<iterator_for<T>, int> freq;
-        for (iterator_for<T> data : datachunk) {
+        unordered_map<typename T::value_type, int> freq;
+        for (auto data : datachunk) {
             freq[data]++;
         }
 
         // Create a priority queue to store live nodes of Huffman tree
-        priority_queue<Node<iterator_for<T>>*, vector<Node<iterator_for<T>>*>, comp<iterator_for<T>>> pq;
+        priority_queue<ModelT*, vector<ModelT*>, comp<typename T::value_type>> pq;
 
         // Create a leaf node for each character and add it
         // to the priority queue.
@@ -84,8 +85,8 @@ public:
             // Remove the two nodes of the highest priority
             // (the lowest frequency) from the queue
 
-            Node<iterator_for<T>>* left = pq.top(); pq.pop();
-            Node<iterator_for<T>>* right = pq.top(); pq.pop();
+            ModelT* left = pq.top(); pq.pop();
+            ModelT* right = pq.top(); pq.pop();
 
             // Create a new internal node with these two nodes
             // as children and with frequency equal to the sum
@@ -101,11 +102,12 @@ public:
         return true;
     }
 
-    Node<iterator_for<T>>* GetModel()
+    ModelT* getModel()
     {
         return _root;
     }
+
 private:
-    Node<iterator_for<T>>* _root;
+    ModelT* _root;
 };
 

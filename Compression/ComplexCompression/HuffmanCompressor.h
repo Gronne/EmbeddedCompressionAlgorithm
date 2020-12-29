@@ -6,8 +6,8 @@
 #include "systemc.h"
 #include "ICompressionCompress.h"
 using namespace std;
-template<class DecompressT, class CompressT>
-class HuffmanCompressor : public sc_module, public ICompressionCompress<DecompressT, CompressT>
+template<class DecompressT, class CompressT, class ModelT = Node<typename DecompressT::value_type>>
+class HuffmanCompressor : public sc_module, public ICompressionCompress<DecompressT, CompressT, ModelT>
 {
 public:
 	HuffmanCompressor(sc_module_name name)
@@ -28,7 +28,7 @@ public:
 		cout << "\nOriginal string is:\n" << sensorData << '\n';
 
 		CompressT compressedData;
-		for (iterator_for<DecompressT> data : sensorData) {
+		for (auto data : sensorData) {
 			compressedData += _huffmanCode[data];
 		}
 
@@ -37,18 +37,18 @@ public:
 
 	};
 
-	void setModel(ICompressionSetup<CompressT, Node<iterator_for<DecompressT>>*>* setup) {
+	void setModel(ICompressionSetup<CompressT, ModelT>* setup) {
 		_setup = (HuffmanSetup<CompressT>*)setup;
 		_root = _setup->getModel();
 	};
 
 private:
-	void encode(Node<iterator_for<DecompressT>>* root, string str) {
-		stack<pair<Node<iterator_for<DecompressT>>*, string>> stack;
+	void encode(ModelT* root, string str) {
+		stack<pair<ModelT*, string>> stack;
 		stack.push({ root,str });
 		while (!stack.empty())
 		{
-			pair<Node<iterator_for<DecompressT>>*, string> element = stack.top();
+			pair<ModelT*, string> element = stack.top();
 			// Pop a node from stack
 			stack.pop();
 			if (element.first == nullptr) {
@@ -57,7 +57,7 @@ private:
 
 			// found a leaf node
 			if (_setup->isLeaf(element.first)) {
-				_huffmanCode[element.first->ch] = (element.second != EMPTY_STRING) ? element.second : "1";
+				_huffmanCode[element.first->data] = (element.second != EMPTY_STRING) ? element.second : "1";
 			}
 			if (element.first->left != nullptr)
 				stack.push({ element.first->left, element.second + "0" });
@@ -66,8 +66,8 @@ private:
 		}
 	}
 	
-	Node<iterator_for<DecompressT>>* _root;
-	unordered_map<iterator_for<DecompressT>, string> _huffmanCode;
+	ModelT* _root;
+	unordered_map<typename DecompressT::value_type, string> _huffmanCode;
 	HuffmanSetup<CompressT>* _setup;
 };
 

@@ -7,12 +7,12 @@
 #include "ICompressionDecompress.h"
 #include "../Input_Communication/Package.h"
 
-template<class SensorT, class CompressedT>
+template<class SensorT, class CompressedT, class ModelT>
 class Compression :
     public sc_module
 {
 public:
-    Compression(sc_module_name name, sc_fifo<SensorT> *comInPipe, sc_fifo<CompressedT> *comOutPipe, sc_fifo<CompressedT> *decomInPipe, sc_fifo<SensorT> *decomOutPipe, ICompressionSetup<SensorT,CompressedT>* setup, ICompressionCompress<SensorT, CompressedT>* compressor, ICompressionDecompress<SensorT, CompressedT>* decompressor) :
+    Compression(sc_module_name name, sc_fifo<SensorT> *comInPipe, sc_fifo<CompressedT> *comOutPipe, sc_fifo<CompressedT> *decomInPipe, sc_fifo<SensorT> *decomOutPipe, ICompressionSetup<SensorT, ModelT>* setup, ICompressionCompress<SensorT, CompressedT, ModelT>* compressor, ICompressionDecompress<SensorT, CompressedT, ModelT>* decompressor) :
         sc_module(name),
         _comInPipe(comInPipe),
         _comOutPipe(comOutPipe),
@@ -92,9 +92,9 @@ private:
     sc_fifo<CompressedT>* _comOutPipe;
     sc_fifo<CompressedT>* _decomInPipe;
     sc_fifo<SensorT> *_decomOutPipe;
-    ICompressionSetup<SensorT,CompressedT> *_setup;
-    ICompressionCompress<SensorT, CompressedT> *_compressor;
-    ICompressionDecompress<SensorT, CompressedT> *_decompressor;
+    ICompressionSetup<SensorT,ModelT> *_setup;
+    ICompressionCompress<SensorT, CompressedT, ModelT> *_compressor;
+    ICompressionDecompress<SensorT, CompressedT, ModelT> *_decompressor;
 
     std::queue<SensorT> setupDataBuffer;
     sc_event compress_e;

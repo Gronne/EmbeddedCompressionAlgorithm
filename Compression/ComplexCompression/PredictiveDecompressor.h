@@ -2,8 +2,8 @@
 #include "ICompressionDecompress.h"
 
 
-template<class DecompressT, class CompressT>
-class PredictiveDecompressor : public ICompressionDecompress<DecompressT, CompressT>
+template<class DecompressT, class CompressT, class ModelT = int>
+class PredictiveDecompressor : public ICompressionDecompress<DecompressT, CompressT, ModelT>
 {
 public:
 	PredictiveDecompressor() {};
@@ -13,7 +13,7 @@ public:
 		return DecompressT(compressedData); 
 	};
 
-	void setModel(ICompressionSetup<DecompressT,CompressT> *setup) {
+	void setModel(ICompressionSetup<DecompressT,ModelT> *setup) {
 
 	};
 
