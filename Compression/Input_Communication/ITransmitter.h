@@ -6,7 +6,7 @@
 #include "systemc.h"
 
 class ITransmitter {
-public:
+protected:
 	virtual void transmit() = 0;
 };
 
