@@ -12,7 +12,7 @@ class Compression :
     public sc_module
 {
 public:
-    Compression(sc_module_name name, sc_fifo<SensorT> *comInPipe, sc_fifo<CompressedT> *comOutPipe, sc_fifo<CompressedT> *decomInPipe, sc_fifo<SensorT> *decomOutPipe, ICompressionSetup<SensorT>* setup, ICompressionCompress<SensorT, CompressedT>* compressor, ICompressionDecompress<SensorT, CompressedT>* decompressor) :
+    Compression(sc_module_name name, sc_fifo<SensorT> *comInPipe, sc_fifo<CompressedT> *comOutPipe, sc_fifo<CompressedT> *decomInPipe, sc_fifo<SensorT> *decomOutPipe, ICompressionSetup<SensorT,CompressedT>* setup, ICompressionCompress<SensorT, CompressedT>* compressor, ICompressionDecompress<SensorT, CompressedT>* decompressor) :
         sc_module(name),
         _comInPipe(comInPipe),
         _comOutPipe(comOutPipe),
@@ -92,7 +92,7 @@ private:
     sc_fifo<CompressedT>* _comOutPipe;
     sc_fifo<CompressedT>* _decomInPipe;
     sc_fifo<SensorT> *_decomOutPipe;
-    ICompressionSetup<SensorT> *_setup;
+    ICompressionSetup<SensorT,CompressedT> *_setup;
     ICompressionCompress<SensorT, CompressedT> *_compressor;
     ICompressionDecompress<SensorT, CompressedT> *_decompressor;
 

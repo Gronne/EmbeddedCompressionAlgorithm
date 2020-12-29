@@ -1,8 +1,8 @@
 #pragma once
 #include "ICompressionSetup.h"
 
-template<class T>
-class PredictiveSetup : public ICompressionSetup<T>
+template<class T, class ModelT>
+class PredictiveSetup : public ICompressionSetup<T, ModelT>
 {
 public:
 	PredictiveSetup() {};

@@ -4,12 +4,14 @@
 #include "ISensor.h"
 #include "Package.h"
 #include <string>
+
+using TextFileTypeT = std::string;
 class TextFileSensor :
-    public ISensor<Package*>, public sc_module
+    public ISensor<TextFileTypeT>, public sc_module
 {
 public:
 
-    TextFileSensor(sc_module_name name, sc_fifo<Package*> *out, char* filename) : 
+    TextFileSensor(sc_module_name name, sc_fifo<TextFileTypeT> *out, char* filename) : 
 		sc_module(name),
 		_out(out)
 	{
@@ -21,11 +23,8 @@ public:
 private:
     virtual void Measure() {
 		// declare temp variables
-		char tmp_val;
-		char tmp_final[55];
-		Package* data = new Package();
-		int charCounter = 0;
-		memset(tmp_final, 0, 55);
+		char tmp_val{};
+		TextFileTypeT data = TextFileTypeT();
 		// declare filepointer
 		FILE* fp_data;
 		fp_data = fopen(_filename, "r");
@@ -35,40 +34,15 @@ private:
 		rewind(fp_data);
 
 		//for each character in the file
-		for (size_t i = 0; i < size; i++)
+		for (size_t i = 0; i < size || fscanf(fp_data, "%c", &tmp_val) != EOF; i++)
 		{
-			// If end of file is reached (-1) then break out of the for loop and stop the thread. 
-			if (fscanf(fp_data, "%c", &tmp_val) == -1)
-			{
-				sc_stop;
-				break;
-			}
-			else {
-				// if the character is a letter in the alphabet. 
-				if ((tmp_val >= 'a' && tmp_val <= 'z') || (tmp_val >= 'A' && tmp_val <= 'Z'))
-				{
-					//add it to the tmp_final which is a variable that holds a whole word.
-					tmp_final[charCounter] = tolower(tmp_val);
-					charCounter++;
-				}
-				else if (tmp_val == 32 || tmp_val == '\n') {
-					// write the data to the fifo
-					data->data = tmp_final;
-					_out->write(data);
-					wait(20, SC_NS);
-
-					// reset charCounter, tmp_final.
-					charCounter = 0;
-					memset(tmp_final, 0, 55);
-					data = new Package();
-
-				}
-			}
-
+			data += tmp_val;
 		}
+		_out->write(data);
+		wait(20, SC_NS);
 	}
 
-	sc_fifo<Package*> *_out;
+	sc_fifo<TextFileTypeT> *_out;
     sc_uint<32> size;
     char* _filename;
 };

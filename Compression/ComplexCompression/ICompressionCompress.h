@@ -7,7 +7,7 @@ class ICompressionCompress
 {
 public:
 	virtual CompressT encode(DecompressT) = 0;
-	virtual void setModel(ICompressionSetup<DecompressT>*) = 0;
+	virtual void setModel(ICompressionSetup<DecompressT,CompressT>*) = 0;
 private:
 
 

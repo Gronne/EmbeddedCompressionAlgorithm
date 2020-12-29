@@ -12,7 +12,7 @@ public:
 		return CompressT(sensorData); 
 	};
 
-	void setModel(ICompressionSetup<DecompressT> *setup) {
+	void setModel(ICompressionSetup<DecompressT,CompressT> *setup) {
 
 	};
 

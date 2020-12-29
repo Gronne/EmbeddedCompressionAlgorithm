@@ -13,7 +13,7 @@ public:
 		return DecompressT(compressedData); 
 	};
 
-	void setModel(ICompressionSetup<DecompressT> *setup) {
+	void setModel(ICompressionSetup<DecompressT,CompressT> *setup) {
 
 	};
 
