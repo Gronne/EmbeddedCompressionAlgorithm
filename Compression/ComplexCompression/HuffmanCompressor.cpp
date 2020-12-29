@@ -55,9 +55,10 @@ void HuffmanCompressor::encode(Node* root, string str)
         if (_setup->isLeaf(element.first)) {
             _huffmanCode[element.first->ch] = (element.second != EMPTY_STRING) ? element.second : "1";
         }
-
-        stack.push({ root->left, element.second + "0" });
-        stack.push({ root->right, element.second + "1" });
+        if (element.first->left != nullptr)
+            stack.push({ element.first->left, element.second + "0" });
+        if (element.first->right != nullptr)
+            stack.push({ element.first->right, element.second + "1" });
     }
 }
 
