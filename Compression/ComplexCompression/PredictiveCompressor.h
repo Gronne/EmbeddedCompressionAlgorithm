@@ -1,14 +1,20 @@
 #pragma once
 #include "ICompressionCompress.h"
 
-template<class T>
-class PredictiveCompressor : public ICompressionCompress<T>
+template<class DecompressT, class CompressT>
+class PredictiveCompressor : public ICompressionCompress<DecompressT, CompressT>
 {
 public:
 	PredictiveCompressor() {};
 	~PredictiveCompressor() {};
 
-	void encode(T) { };
+	CompressT encode(DecompressT sensorData) { 
+		return CompressT(sensorData); 
+	};
+
+	void setModel(ICompressionSetup<DecompressT> *setup) {
+
+	};
 
 private:
 

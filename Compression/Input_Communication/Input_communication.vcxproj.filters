@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Communication">
+      <UniqueIdentifier>{a28aabf6-2d94-466d-aea4-9c8b578ca356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sensor">
+      <UniqueIdentifier>{e881d15a-a2ef-4420-8a4f-97a38e7e9a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sensor">
+      <UniqueIdentifier>{48cee421-b01a-43c2-bcbf-c512be01117b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Communication">
+      <UniqueIdentifier>{e39e9a22-d81a-41ea-9f8c-778c4558ff42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Top.cpp">
@@ -22,19 +34,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Receiver.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Communication</Filter>
     </ClCompile>
     <ClCompile Include="Transmitter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextFileSensor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Communication</Filter>
     </ClCompile>
     <ClCompile Include="Communication.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Communication</Filter>
     </ClCompile>
     <ClCompile Include="SensorFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFileSensor.cpp">
+      <Filter>Source Files\Sensor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,32 +56,35 @@
     <ClInclude Include="Top.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Receiver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transmitter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ISensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFileSensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Package.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Communication.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Communication</Filter>
     </ClInclude>
     <ClInclude Include="ITransmitter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Communication</Filter>
     </ClInclude>
     <ClInclude Include="IReceiver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Transmitter.h">
+      <Filter>Header Files\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Receiver.h">
+      <Filter>Header Files\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="ISensor.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Package.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFileSensor.h">
+      <Filter>Header Files\Sensor</Filter>
     </ClInclude>
     <ClInclude Include="SensorFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="SinusSensor.h">
+      <Filter>Header Files\Sensor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

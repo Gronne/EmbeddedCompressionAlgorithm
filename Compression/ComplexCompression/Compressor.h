@@ -7,12 +7,12 @@
 #include "ICompressionDecompress.h"
 #include "../Input_Communication/Package.h"
 
-template<class SensorT, class CommunicationT>
+template<class SensorT, class CompressedT>
 class Compression :
     public sc_module
 {
 public:
-    Compression(sc_module_name name, sc_fifo<SensorT> comInPipe, sc_fifo<CommunicationT> comOutPipe, sc_fifo<CommunicationT> decomInPipe, sc_fifo<SensorT> decomOutPipe, ICompressionSetup<SensorT>* setup, ICompressionCompress<SensorT>* compressor, ICompressionDecompress<SensorT>* decompressor) :
+    Compression(sc_module_name name, sc_fifo<SensorT> *comInPipe, sc_fifo<CompressedT> *comOutPipe, sc_fifo<CompressedT> *decomInPipe, sc_fifo<SensorT> *decomOutPipe, ICompressionSetup<SensorT>* setup, ICompressionCompress<SensorT, CompressedT>* compressor, ICompressionDecompress<SensorT, CompressedT>* decompressor) :
         sc_module(name),
         _comInPipe(comInPipe),
         _comOutPipe(comOutPipe),
@@ -22,56 +22,87 @@ public:
         _compressor(compressor),
         _decompressor(decompressor)
     {
-        SC_THREAD(run);
+        SC_THREAD(setup_state);
+        SC_THREAD(decompress_state);
+        dont_initialize();
+        sensitive << decompress_e;
+        SC_THREAD(compress_state);
+        dont_initialize();
+        sensitive << compress_e;
     };
     SC_HAS_PROCESS(Compression);
 
 
 private:
-    void run() {
-        while(true)
-            std::cout << true << std::endl;
+    void setup_state() {
+        bool status;
+        SensorT data;
+
+        do{
+            wait(_comInPipe->data_written_event());
+            data = _comInPipe->read();
+            setupDataBuffer.push(data);
+            status = _setup->setup(data);
+        } while (status == false);
+
+        _compressor->setModel(_setup);
+        _decompressor->setModel(_setup);
+
+        decompress_e.notify();
+
+        while(setupDataBuffer.size() > 0)
+        {
+            data = setupDataBuffer.front();
+            setupDataBuffer.pop();
+            CompressedT dataC = _compressor->encode(data);
+            _comOutPipe->write(dataC);
+        }
+
+        compress_e.notify();
     };
 
+   
+
+    void compress_state() {
+        SensorT sensorData;
+        CompressedT comData;
+
+        while (true) {
+            wait(_comInPipe->data_written_event());
+            sensorData = _comInPipe->read();
+            comData = _compressor->encode(sensorData);
+            _comOutPipe->write(comData);
+        }
+    }
+
+    void decompress_state() {
+        SensorT sensorData;
+        CompressedT comData;
+
+        while (true) {
+            wait(_decomInPipe->data_written_event());
+            comData = _decomInPipe->read();
+            sensorData = _decompressor->decode(comData);
+            std::cout << "Received decompressed data: " << sensorData << std::endl;
+            //_decomOutPipe->write(sensorData);
+        }
+    }
+
     sc_fifo<SensorT> *_comInPipe;
-    sc_fifo<CommunicationT>* _comOutPipe;
-    sc_fifo<CommunicationT>* _decomInPipe;
+    sc_fifo<CompressedT>* _comOutPipe;
+    sc_fifo<CompressedT>* _decomInPipe;
     sc_fifo<SensorT> *_decomOutPipe;
     ICompressionSetup<SensorT> *_setup;
-    ICompressionCompress<SensorT> *_compressor;
-    ICompressionDecompress<SensorT> *_decompressor;
+    ICompressionCompress<SensorT, CompressedT> *_compressor;
+    ICompressionDecompress<SensorT, CompressedT> *_decompressor;
+
+    std::queue<SensorT> setupDataBuffer;
+    sc_event compress_e;
+    sc_event decompress_e;
 };
-
-
 
 
 
 #endif
 
-
-//Call setup until setup return true
-//databuffer
-//do {
-//    databuffer.push(newMeasurement);
-//    status = _setup.setup(dataBuffer.front()
-//} while (status == false);
-//
-//    _setup.setup(setupReceived);
-//
-//    //Init compressor
-//    _compressor.init(_setup);
-//    //Init decompressor
-//    _decompressor.init(_setup);
-//
-//    //Compress and setup data-buffer
-//    for element in databuffer{
-//        cElement = compressor.encode(element);
-//        send(cElement);
-//    }
-//
-//        //Compress and new data
-//        while (!fifoIn.empty()) {
-//            cElement = compressor.encode(fifoIn.pop());
-//            send(cElement);
-//        }
 
