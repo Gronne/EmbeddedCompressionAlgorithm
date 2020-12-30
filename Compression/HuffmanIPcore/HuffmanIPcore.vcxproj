@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ba49925d-9847-4772-b5b9-d665194fe1ae}</ProjectGuid>
-    <RootNamespace>ComplexCompression</RootNamespace>
+    <ProjectGuid>{1a2da61c-f5d3-4fe8-9784-131dd4b3e929}</ProjectGuid>
+    <RootNamespace>HuffmanIPcore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Compression</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,17 +86,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\systemc-2.3.3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalOptions>/vmg %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\systemc-2.3.3\msvc10\SystemC\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SystemC.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,24 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compression.cpp" />
     <ClCompile Include="HuffmanCompressor.cpp" />
     <ClCompile Include="HuffmanDecompressor.cpp" />
+    <ClCompile Include="HuffmanIPcore.cpp" />
     <ClCompile Include="HuffmanSetup.cpp" />
-    <ClCompile Include="PredictiveCompressor.cpp" />
-    <ClCompile Include="PredictiveDecompressor.cpp" />
-    <ClCompile Include="PredictiveSetup.cpp" />
-    <ClCompile Include="Top.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Compressor.h" />
+    <ClInclude Include="Datatypes.h" />
     <ClInclude Include="HuffmanCompressor.h" />
     <ClInclude Include="HuffmanDecompressor.h" />
     <ClInclude Include="HuffmanSetup.h" />
-    <ClInclude Include="PredictiveCompressor.h" />
-    <ClInclude Include="PredictiveDecompressor.h" />
-    <ClInclude Include="PredictiveSetup.h" />
-    <ClInclude Include="Top.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

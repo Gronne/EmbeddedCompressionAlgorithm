@@ -13,6 +13,8 @@
 // Huffman coding algorithm
 int sc_main(int argc, char** argv)
 {
+
+
     //---------Pipes---------
     //Simple
     sc_fifo<SensorFactory::TextFileSensorSubT> sensorToCompressorSimplePipe;
@@ -29,8 +31,10 @@ int sc_main(int argc, char** argv)
     //--------Filters--------
     //Simple
     SensorFactory::TextFileSensorT* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
+    
     Communication<CompressionFactory::SimpleCompressT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
     Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCompressT, CompressionFactory::SimpleModelT<SensorFactory::TextFileSensorSubT>> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
+    
     //Complex
     /*SensorFactory::SinusSensorT* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
     Communication<CompressionFactory::ComplexCompressT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
