@@ -2,7 +2,7 @@
 #include "ICompressionDecompress.h"
 
 
-template<class DecompressT, class CompressT, class ModelT = int>
+template<class DecompressT, class CompressT, class ModelT>
 class PredictiveDecompressor : public ICompressionDecompress<DecompressT, CompressT, ModelT>
 {
 public:

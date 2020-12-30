@@ -13,11 +13,11 @@ public:
 
 	template<typename T>
 	using SimpleModelT = Node<typename T::value_type>;
-	using ComplexModelT = int;
+	using ComplexModelT = double;
 
 	template<class T>
 	static Compression<T, ComplexCompressT, ComplexModelT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
-		return new Compression<T, ComplexCompressT, ComplexModelT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T>(), new PredictiveCompressor<T, ComplexCompressT>(), new PredictiveDecompressor<T, ComplexCompressT>());
+		return new Compression<T, ComplexCompressT, ComplexModelT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T, CompressionFactory::ComplexModelT>(), new PredictiveCompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT>(), new PredictiveDecompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT>());
 	};
 
 	template<class T>

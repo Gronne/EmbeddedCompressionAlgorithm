@@ -1,7 +1,7 @@
 #pragma once
 #include "ICompressionCompress.h"
 
-template<class DecompressT, class CompressT, class ModelT = int>
+template<class DecompressT, class CompressT, class ModelT>
 class PredictiveCompressor : public ICompressionCompress<DecompressT, CompressT, ModelT>
 {
 public:
