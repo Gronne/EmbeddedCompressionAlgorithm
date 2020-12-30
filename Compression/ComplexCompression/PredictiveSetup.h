@@ -84,16 +84,22 @@ private:
 
 	ModelT calcCoefficients(std::vector<SensorT>* invMatrix, std::vector<SensorT>* autoVector) {
 		ModelT coefficients;
-		std::vector<SensorT> result = multMatWVec(invMatrix, autoVector);
+		std::vector<SensorT> result = multSymMatWVec(invMatrix, autoVector);
 		for (auto elem : result)
 			coefficients.push_back(ModelT::value_type(elem));
 		return coefficients;
 	}
 
 	
-	std::vector<SensorT> multMatWVec(std::vector<SensorT>* matrix, std::vector<SensorT>* vector) {
+	std::vector<SensorT> multSymMatWVec(std::vector<SensorT>* matrix, std::vector<SensorT>* vector) {
 		std::vector<SensorT> resultVec;
-
+		int matSize = vector->size() - 1;
+		for (int row = 0; row < matSize; ++row) {
+			SensorT value = matrix->at(matSize*row + 0) * vector->at(0);
+			for (int col = 1; col < matSize; ++col)
+				value = value + matrix->at(matSize * row + col) * vector->at(col);
+			resultVec.push_back(value);
+		}
 		return resultVec;
 	}
 
