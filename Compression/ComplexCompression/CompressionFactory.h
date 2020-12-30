@@ -5,6 +5,7 @@
 #include "PredictiveDecompressor.h"
 #include "../Input_Communication/SensorFactory.h"
 #include "../Input_Communication/Communication.h"
+#include <vector>
 
 class CompressionFactory {
 public:
@@ -13,11 +14,12 @@ public:
 
 	template<typename T>
 	using SimpleModelT = Node<typename T::value_type>;
-	using ComplexModelT = double;
+	template<class T>
+	using ComplexModelT = std::vector<T>;
 
 	template<class T>
-	static Compression<T, ComplexCompressT, ComplexModelT>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
-		return new Compression<T, ComplexCompressT, ComplexModelT>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T, CompressionFactory::ComplexModelT>(), new PredictiveCompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT>(), new PredictiveDecompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT>());
+	static Compression<T, ComplexCompressT, ComplexModelT<T>>* MakeComplexCompression(sc_fifo<T> *comInPipe, sc_fifo<ComplexCompressT> *comOutPipe, sc_fifo<ComplexCompressT> *decomInPipe, sc_fifo<T> *decomOutPipe) {
+		return new Compression<T, ComplexCompressT, ComplexModelT<T>>("ComplexCompression", comInPipe, comOutPipe, decomInPipe, decomOutPipe, new PredictiveSetup<T, CompressionFactory::ComplexModelT<T>>(), new PredictiveCompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT<T>>(), new PredictiveDecompressor<T, ComplexCompressT, CompressionFactory::ComplexModelT<T>>());
 	};
 
 	template<class T>

@@ -12,14 +12,14 @@ class SensorFactory : public sc_module
 public:
 	using TextFileSensorSubT = TextFileTypeT;
 	using TextFileSensorT = ISensor<TextFileSensorSubT>;
-	using SinusSensorSubT = int;
+	using SinusSensorSubT = double;
 	using SinusSensorT = ISensor<SinusSensorSubT>;
 
 	static TextFileSensorT* CreateTextFileSensor(sc_fifo<TextFileSensorSubT> *pipe) {
 		return new TextFileSensor("textFileSensor", pipe, (char*)INPUT_FILE_A);
 	}
 
-	static SinusSensorT* CreateSinusSensor(sc_fifo<int> *pipe, int measurementSpeed = 100) {
+	static SinusSensorT* CreateSinusSensor(sc_fifo<SinusSensorSubT> *pipe, int measurementSpeed = 100) {
 		return new SinusSensor("sinusSensor", pipe, measurementSpeed);
 	};
 
