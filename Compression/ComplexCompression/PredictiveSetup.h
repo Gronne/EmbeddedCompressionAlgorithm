@@ -5,9 +5,7 @@
 #include <math.h>
 #include <iostream>
 
-const int MATRIX_SIZE = 3;
-
-template<class SensorT, class ModelT>
+template<class SensorT, class ModelT, int MATRIX_SIZE = 3>
 class PredictiveSetup : public ICompressionSetup<SensorT, ModelT>
 {
 public:
