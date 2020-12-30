@@ -3,6 +3,7 @@
 #include <vector>
 #include <array>
 #include <math.h>
+#include <iostream>
 
 template<class SensorT, class ModelT>
 class PredictiveSetup : public ICompressionSetup<SensorT, ModelT>
@@ -10,10 +11,6 @@ class PredictiveSetup : public ICompressionSetup<SensorT, ModelT>
 public:
 	PredictiveSetup() {};
 	~PredictiveSetup() {};
-
-	// ------------------------------------------------------------------------
-	// !!!!! SHOULD BE MADE FROM VECTOR TO ARRAYS WITH TEMPLATES OR CONST !!!!!
-	// ------------------------------------------------------------------------
 
 
 	bool setup(SensorT dataPoint) { 
@@ -25,12 +22,12 @@ public:
 			return false;
 		
 		//Create autoCorrelation matrix and vector. 3 to keep it simple
-		std::array<SensorT,3> autocorrelation = calcAutocorrelation(&_periodeData);	
+		std::array<SensorT,4> autocorrelation = calcAutocorrelation(&_periodeData);	
 		std::array<SensorT,3> autoVector = createAutoVector(&autocorrelation);
-		std::array<SensorT,3*3> autoMatrix = createAutoMatrix(&autocorrelation);
+		std::array<SensorT, 3 * 3> autoMatrix = createAutoMatrix(&autocorrelation);
 
 		//Invert matrix
-		std::array<SensorT,3*3> invMatrix = inverseMatrix(&autoMatrix);
+		std::array<SensorT,3*3> invMatrix = inverse3x3Matrix(&autoMatrix);
 
 		//multiply inverted matrix and vector to get coefficients
 		_coefficients = calcCoefficients(&invMatrix, &autoVector);
@@ -49,8 +46,8 @@ private:
 	};
 
 
-	std::array<SensorT, 3> calcAutocorrelation(std::vector<SensorT>* periodeData) {
-		std::array<SensorT, 3> autocorrelation;
+	std::array<SensorT, 4> calcAutocorrelation(std::vector<SensorT>* periodeData) {
+		std::array<SensorT, 4> autocorrelation;
 		for (int lag = 0; lag < autocorrelation.size(); ++lag)
 			autocorrelation.at(lag) = calcAutoWLag(periodeData, lag);
 		return autocorrelation;
@@ -65,7 +62,7 @@ private:
 	}
 
 
-	std::array<SensorT, 3> createAutoVector(std::array<SensorT, 3>* autocorrelation) {
+	std::array<SensorT, 3> createAutoVector(std::array<SensorT, 4>* autocorrelation) {
 		std::array<SensorT, 3> autoVector;
 		for (int index = 1; index < autocorrelation->size(); ++index)
 			autoVector.at(index-1) = autocorrelation->at(index);
@@ -73,7 +70,7 @@ private:
 	}
 
 
-	std::array<SensorT, 3*3> createAutoMatrix(std::array<SensorT, 3>* autocorrelation) {
+	std::array<SensorT, 3*3> createAutoMatrix(std::array<SensorT, 4>* autocorrelation) {
 		std::array<SensorT, 3*3> autoMatrix;
 		int matSize = autocorrelation->size() - 1;
 		for (int row = 0; row < matSize; ++row)
@@ -83,13 +80,61 @@ private:
 	}
 
 
-	std::array<SensorT, 3*3> inverseMatrix(std::array<SensorT, 3*3>* autoMatrix) {
-		std::array<SensorT, 3 * 3> invMatrix { };
+	std::array<SensorT, 3*3> inverse3x3Matrix(std::array<SensorT, 3*3>* autoMatrix) {
+		//Create same size identity matrix
+		std::array<SensorT, 3 * 3> invMatrix { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 
-		//Can only invert a 3x3 matrix
+		//Minus First row from second and third
+		scaleSubstraction(autoMatrix, &invMatrix, 0, 1, 0);
+		scaleSubstraction(autoMatrix, &invMatrix, 0, 2, 0);
+		//Scale rows
+		scaleRows(autoMatrix, &invMatrix);
 
+		//Minus second row from third
+		scaleSubstraction(autoMatrix, &invMatrix, 1, 2, 1);
+		scaleRows(autoMatrix, &invMatrix);
 
+		//Minus second row from first
+		scaleSubstraction(autoMatrix, &invMatrix, 1, 0, 1);
+		scaleRows(autoMatrix, &invMatrix);
+
+		//Minus third row from first and second
+		scaleSubstraction(autoMatrix, &invMatrix, 2, 0, 2);
+		scaleSubstraction(autoMatrix, &invMatrix, 2, 1, 2);
+		scaleRows(autoMatrix, &invMatrix);
+
+		//Return inverse matrix
 		return invMatrix;
+	}
+
+
+	void scaleSubstraction(std::array<SensorT, 3 * 3>* originalMatrix, std::array<SensorT, 3 * 3>* IdentityMatrix, int primary, int secondary, int scaleCol) {
+		//Get vectors from original
+		std::array<SensorT, 3> primaryRowOri = getRow(originalMatrix, primary);
+		std::array<SensorT, 3> secondaryRowOri = getRow(originalMatrix, secondary);
+		//Get vectors from identity
+		std::array<SensorT, 3> primaryRowIde = getRow(IdentityMatrix, primary);		
+		std::array<SensorT, 3> secondaryRowIde = getRow(IdentityMatrix, secondary);
+
+		//Scale original vectors
+		SensorT primScaling = primaryRowOri.at(scaleCol);
+		SensorT secScaling = secondaryRowOri.at(scaleCol);
+		scaleRow(&primaryRowOri, secScaling);
+		scaleRow(&secondaryRowOri, primScaling);
+		//Scale identity vectors
+		scaleRow(&primaryRowIde, secScaling);
+		scaleRow(&secondaryRowIde, primScaling);
+
+		//Substract original vectors
+		substractRows(&primaryRowOri, &secondaryRowOri);
+		//Substract idenity vectors
+		substractRows(&primaryRowIde, &secondaryRowIde);
+
+
+		//Set substracted row back into Original
+		setRow(originalMatrix, &secondaryRowOri, secondary);
+		//Set substracted row back into Identity
+		setRow(IdentityMatrix, &secondaryRowIde, secondary);
 	}
 
 
@@ -99,10 +144,33 @@ private:
 	}
 
 
+	std::array<SensorT, 3> substractRows(std::array<SensorT, 3>* vecPrimary, std::array<SensorT, 3>* vecSecondary) {
+		std::array<SensorT, 3> newVec{};
+		for (int col = 0; col < 3; ++col)
+			vecSecondary->at(col) = vecSecondary->at(col) - vecPrimary->at(col);
+		return newVec;
+	}
+
+
+	void scaleRows(std::array<SensorT, 3 * 3>* originalMatrix, std::array<SensorT, 3 * 3>* identityMatrix) {
+		for (int index = 0; index < 3; ++index) {
+			SensorT scalingFactor = 1/originalMatrix->at(index * 3 + index);
+			scaleRow(originalMatrix, index, scalingFactor);
+			scaleRow(identityMatrix, index, scalingFactor);
+		}
+	}
+
+
 	void scaleRow(std::array<SensorT, 3*3> *matrix, int rowNr, SensorT scalingFactor) {
 		int matrixSize = 3;
 		for (int index = 0; index < matrixSize; ++index)
 			matrix->at(matrixSize * rowNr + index) = matrix->at(matrixSize * rowNr + index) * scalingFactor;
+	}
+
+	void scaleRow(std::array<SensorT, 3>* vec, SensorT scalingFactor) {
+		int matrixSize = 3;
+		for (int index = 0; index < matrixSize; ++index)
+			vec->at(index) = vec->at(index) * scalingFactor;
 	}
 
 
