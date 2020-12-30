@@ -3,7 +3,6 @@
 #include <vector>
 #include <array>
 #include <math.h>
-#include <iostream>
 
 template<class SensorT, class ModelT>
 class PredictiveSetup : public ICompressionSetup<SensorT, ModelT>
@@ -42,7 +41,7 @@ public:
 
 private:
 	bool detectPeriode(std::vector<SensorT> *periodeData) {
-		return periodeData->size() > 10;
+		return periodeData->size() > 200;
 	};
 
 
@@ -191,7 +190,7 @@ private:
 	ModelT calcCoefficients(std::array<SensorT, 3*3>* invMatrix, std::array<SensorT, 3>* autoVector) {
 		ModelT coefficients;
 		std::array<SensorT, 3> result = multSymMatWVec(invMatrix, autoVector);
-		for (auto elem : result)
+		for (auto &elem : result)
 			coefficients.push_back(ModelT::value_type(elem));
 		return coefficients;
 	}
@@ -199,7 +198,7 @@ private:
 	
 	std::array<SensorT, 3> multSymMatWVec(std::array<SensorT, 3*3>* matrix, std::array<SensorT, 3>* vector) {
 		std::array<SensorT, 3> resultVec;
-		int matSize = vector->size() - 1;
+		int matSize = vector->size();
 		for (int row = 0; row < matSize; ++row) {
 			SensorT value = matrix->at(matSize*row + 0) * vector->at(0);
 			for (int col = 1; col < matSize; ++col)
