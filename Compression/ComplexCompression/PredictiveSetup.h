@@ -52,8 +52,17 @@ private:
 
 	std::vector<SensorT> calcAutocorrelation(std::vector<SensorT>* periodeData, int length) {
 		std::vector<SensorT> autocorrelation;
-		
+		for (int lag = 0; lag < lag; ++lag)
+			autocorrelation.push_back(calcAutoWLag(periodeData, lag));
 		return autocorrelation;
+	}
+
+
+	SensorT calcAutoWLag(std::vector<SensorT>* signal, int lag) {
+		SensorT accumulatedValue = signal->at(0) * signal->at(lag);
+		for (int index = 1; index + lag < signal->size(); ++index)
+			accumulatedValue = accumulatedValue + signal->at(index) * signal->at(index + lag);	//Everything else will be 0
+		return accumulatedValue;
 	}
 
 
