@@ -24,7 +24,7 @@ public:
 private:
     virtual void Measure() {
         while (true) {
-            int data = (SinusSensorT)(sin(double(_counter++))*100);
+            int data = (SinusSensorT)(sin(double(_counter++)/10)*100);
             _out->write(data);
             wait(_measurementSpeed, SC_NS);
         }
