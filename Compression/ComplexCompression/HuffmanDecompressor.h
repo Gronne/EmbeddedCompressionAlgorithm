@@ -31,12 +31,12 @@ public:
         }
         else
         {
-            // Traverse the Huffman Tree again and this time,
-            // decode the encoded string
+            // Traversing the Huffmantree i. e. the _root
+            // decode the encoded string i. e. the compressedData
             int index = -1;
             
             while (index < (int)compressedData.size() - 1) {
-                decode(_root, index, compressedData);
+                tmp += decode(_root, index, compressedData);
             }
             
         }
