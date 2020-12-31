@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2a5b8f69-d34e-4c87-bfd9-508c01a53ec8}</ProjectGuid>
-    <RootNamespace>PredictiveIPCore</RootNamespace>
+    <ProjectGuid>{057b7356-2adb-4155-a8a4-4e009bd83640}</ProjectGuid>
+    <RootNamespace>CommunicationIpCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -145,15 +145,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PredictiveCompressor.cpp" />
-    <ClCompile Include="PredictiveDecompressor.cpp" />
-    <ClCompile Include="PredictiveSetup.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Datatypes.h" />
-    <ClInclude Include="PredictiveCompressor.h" />
-    <ClInclude Include="PredictiveDecompressor.h" />
-    <ClInclude Include="PredictiveSetup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

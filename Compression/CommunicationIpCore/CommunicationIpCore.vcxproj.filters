@@ -13,36 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\ComplexCompression">
-      <UniqueIdentifier>{326c85e2-44cb-4ca1-9d56-33f0e1ee1aa7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PredictiveCompressor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PredictiveDecompressor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PredictiveSetup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PredictiveCompressor.h">
-      <Filter>Header Files\ComplexCompression</Filter>
-    </ClInclude>
-    <ClInclude Include="PredictiveDecompressor.h">
-      <Filter>Header Files\ComplexCompression</Filter>
-    </ClInclude>
-    <ClInclude Include="PredictiveSetup.h">
-      <Filter>Header Files\ComplexCompression</Filter>
-    </ClInclude>
-    <ClInclude Include="Datatypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
