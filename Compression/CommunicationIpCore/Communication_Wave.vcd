@@ -1,5 +1,5 @@
 $date
-     Jan 02, 2021       14:51:37
+     Jan 02, 2021       23:11:20
 $end
 
 $version
@@ -13,9 +13,12 @@ $end
 $scope module SystemC $end
 $var wire    1  aaaaa  clock       $end
 $var wire    1  aaaab  reset       $end
-$var wire    4  aaaac  data [3:0]  $end
-$var wire    1  aaaad  transmitterReady       $end
-$var wire    1  aaaae  receiverReady       $end
+$var wire    4  aaaac  data_input [3:0]  $end
+$var wire    4  aaaad  data_internal [3:0]  $end
+$var wire    4  aaaae  data_output [3:0]  $end
+$var wire    1  aaaaf  transmitterReady       $end
+$var wire    1  aaaag  receiverReady       $end
+$var wire    1  aaaah  inDataReady       $end
 $upscope $end
 $enddefinitions  $end
 
@@ -27,8 +30,11 @@ $dumpvars
 1aaaaa
 0aaaab
 b0 aaaac
-0aaaad
-1aaaae
+b0 aaaad
+b0 aaaae
+0aaaaf
+0aaaag
+0aaaah
 $end
 
 #4
@@ -37,40 +43,45 @@ $end
 #8
 1aaaaa
 b101 aaaac
+1aaaag
+1aaaah
 
 #12
 0aaaaa
 
 #16
 1aaaaa
+0aaaah
 
 #20
 0aaaaa
 
 #24
 1aaaaa
-1aaaad
+b101 aaaad
+1aaaaf
 
 #28
 0aaaaa
 
 #32
 1aaaaa
-0aaaae
+b101 aaaae
+0aaaag
 
 #36
 0aaaaa
 
 #40
 1aaaaa
-0aaaad
-1aaaae
 
 #44
 0aaaaa
 
 #48
 1aaaaa
+0aaaaf
+1aaaag
 
 #52
 0aaaaa

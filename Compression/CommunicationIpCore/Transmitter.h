@@ -4,8 +4,9 @@ SC_MODULE(Transmitter) {
 	//Ports
 	sc_in<bool> inClk;
 	sc_in<bool> inReset;
-	sc_in<sc_uint<NUM_BITS>> inData;
-	sc_out<sc_uint<NUM_BITS>> outData;
+
+	sc_in<sc_uint<NUM_BITS> > inData;
+	sc_out<sc_uint<NUM_BITS> > outData;
 
 	//handshake signals
 	sc_in<bool> inDataReady;
@@ -15,6 +16,7 @@ SC_MODULE(Transmitter) {
 
 	//Process Declaration
 	void transmitterThread();
+
 
 	//Constructor
 	SC_CTOR(Transmitter) {

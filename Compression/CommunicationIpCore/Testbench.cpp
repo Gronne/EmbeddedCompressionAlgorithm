@@ -28,9 +28,12 @@ int sc_main(int argc, char** argv)
 	tracefile->set_time_unit(1, SC_NS);
 	sc_trace(tracefile, s_clk, "clock");
 	sc_trace(tracefile, s_reset, "reset");
-	sc_trace(tracefile, s_data_input, "data");
+	sc_trace(tracefile, s_data_input, "data_input");
+	sc_trace(tracefile, s_data_internal, "data_internal");
+	sc_trace(tracefile, s_data_output, "data_output");
 	sc_trace(tracefile, s_transmitterReady, "transmitterReady");
 	sc_trace(tracefile, s_receiverReady, "receiverReady");
+	sc_trace(tracefile, s_inDataReady, "inDataReady");
 
 	//bind ports, and signals
 	transmitter.inClk(s_clk);
@@ -47,6 +50,7 @@ int sc_main(int argc, char** argv)
 	receiver.outData(s_data_output);
 	receiver.transmitterReady(s_transmitterReady);
 	receiver.receiverReady(s_receiverReady);
+	
 
 	driver.inClk(s_clk);
 	driver.reset(s_reset);
@@ -56,7 +60,7 @@ int sc_main(int argc, char** argv)
 
 	// Sim for 200
 	int end_time = 200;
-	std::cout << "INFO: Simulating" << std::endl;
+	//std::cout << "INFO: Simulating" << std::endl;
 	// start simulation
 	sc_start(end_time, SC_NS);
 
@@ -67,7 +71,7 @@ int sc_main(int argc, char** argv)
 		printf("Test failed !!!\n");
 	}
 	sc_close_vcd_trace_file(tracefile);
-	std::cout << "Created Communication_Wave.vcd" << std::endl;
+	//std::cout << "Created Communication_Wave.vcd" << std::endl;
 	return driver.retval;
     return 0;
 }

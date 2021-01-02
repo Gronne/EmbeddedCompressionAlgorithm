@@ -2,10 +2,13 @@
 
 void Transmitter::transmitterThread()
 {
-	std::cout << "dunno" << std::endl;
+#pragma HLS RESOURCE variable=inData core=AXI4LiteS metadata="-bus_bundle slv0"
+#pragma HLS RESOURCE variable=inDataReady core=AXI4LiteS metadata="-bus_bundle slv0"
 	sc_uint<NUM_BITS> data;
 	while (true)
 	{
+		wait();
+
 		transmitterReady.write(false);
 		// Wait for input data
 		do { wait(); } while (!(inDataReady == true));

@@ -7,6 +7,7 @@ void CommunicationDriver::test() {
 	//Initialization
 	data = 0x5;
 	
+
 	reset.write(true);
 	wait();
 	reset.write(false);
@@ -19,8 +20,8 @@ void CommunicationDriver::test() {
 	wait();
 	wait();
 	wait();
-
 	receivedData = outDataPort.read();
+
 	if (receivedData == data)
 		retval = 0;
 	else

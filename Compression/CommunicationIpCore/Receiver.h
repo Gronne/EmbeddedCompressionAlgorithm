@@ -1,13 +1,15 @@
 #pragma once
-#include <iostream>
 #include "DataTypes.h"
 
 SC_MODULE(Receiver) {
+
 	//Ports
 	sc_in<bool> inClk;
 	sc_in<bool> inReset;
-	sc_in<sc_uint<NUM_BITS>> inData;
-	sc_out<sc_uint<NUM_BITS>> outData;
+
+
+	sc_in<sc_uint<NUM_BITS> > inData;
+	sc_out<sc_uint<NUM_BITS> > outData;
 
 	//handshake signals
 	sc_out<bool> receiverReady;
