@@ -30,24 +30,23 @@ int sc_main(int argc, char** argv)
 
     //--------Filters--------
     //Simple
-    SensorFactory::TextFileSensorT* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
-    
+    auto* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
     Communication<CompressionFactory::SimpleCompressT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
-    Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCompressT, CompressionFactory::SimpleModelT<SensorFactory::TextFileSensorSubT>> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
+    auto *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
     
     //Complex
-    /*SensorFactory::SinusSensorT* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
+    auto* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
     Communication<CompressionFactory::ComplexCompressT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
-    Compression<SensorFactory::SinusSensorSubT, CompressionFactory::ComplexCompressT> *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);*/
+    auto *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT, 3>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
 
 
     //---------Start---------
     sc_start(200, SC_MS);
 
     //---------Clean---------
-    delete textSensor;
+    //delete textSensor;
     //delete sinusSensor;
-    delete simpleCompression;
+    //delete simpleCompression;
     //delete complexCompression;
 
     //Terminate
