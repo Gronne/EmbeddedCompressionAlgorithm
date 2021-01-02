@@ -13,8 +13,6 @@
 // Huffman coding algorithm
 int sc_main(int argc, char** argv)
 {
-
-
     //---------Pipes---------
     //Simple
     sc_fifo<SensorFactory::TextFileSensorSubT> sensorToCompressorSimplePipe;
@@ -44,10 +42,10 @@ int sc_main(int argc, char** argv)
     sc_start(200, SC_MS);
 
     //---------Clean---------
-    //delete textSensor;
-    //delete sinusSensor;
-    //delete simpleCompression;
-    //delete complexCompression;
+    delete textSensor;
+    delete sinusSensor;
+    delete simpleCompression;
+    delete complexCompression;
 
     //Terminate
     return 0;
