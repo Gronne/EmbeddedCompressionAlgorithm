@@ -8,6 +8,7 @@ SC_MODULE(Transmitter) {
 	sc_out<sc_uint<NUM_BITS>> outData;
 
 	//handshake signals
+	sc_in<bool> inDataReady;
 	sc_out<bool> transmitterReady;
 	sc_in<bool> receiverReady;
 	//Variables
@@ -20,7 +21,6 @@ SC_MODULE(Transmitter) {
 		//Process Registration
 		SC_CTHREAD(transmitterThread, inClk.pos());
 		reset_signal_is(inReset, true);
+
 	}
-}
-
-
+};

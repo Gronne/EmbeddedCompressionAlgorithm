@@ -5,8 +5,9 @@ SC_MODULE(CommunicationDriver) {
 	//Ports
 	sc_in<bool> inClk;
 	sc_out<bool> reset;
-	sc_in<sc_uint<NUM_BITS>> inDataPort;
-	sc_out<sc_uint<NUM_BITS>> outDataPort;
+	sc_out<bool> inDataReady;
+	sc_out<sc_uint<NUM_BITS>> inDataPort;
+	sc_in<sc_uint<NUM_BITS>> outDataPort;
 
 	int retval;
 
@@ -16,7 +17,7 @@ SC_MODULE(CommunicationDriver) {
 	SC_CTOR(CommunicationDriver) : retval(-1) {
 
 		//Process Registration
-		SC_THREAD(test)
+		SC_THREAD(test);
 			sensitive << inClk.pos();
 	}
 };

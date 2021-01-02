@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include "DataTypes.h"
+
 SC_MODULE(Receiver) {
 	//Ports
 	sc_in<bool> inClk;
@@ -21,4 +23,4 @@ SC_MODULE(Receiver) {
 		SC_CTHREAD(receiverThread, inClk.pos());
 		reset_signal_is(inReset, true);
 	}
-}
+};

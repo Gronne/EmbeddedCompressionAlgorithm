@@ -12,15 +12,15 @@ void CommunicationDriver::test() {
 	reset.write(false);
 	wait();
 
-	outDataPort.write(data);
-	
+	inDataPort.write(data);
+	inDataReady.write(true);
+	wait();
+	inDataReady.write(false);
+	wait();
 	wait();
 	wait();
 
-	receivedData = inDataPort.read();
-
-	wait();
-
+	receivedData = outDataPort.read();
 	if (receivedData == data)
 		retval = 0;
 	else

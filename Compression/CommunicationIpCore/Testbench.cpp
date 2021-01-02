@@ -9,9 +9,11 @@ int sc_main(int argc, char** argv)
 	sc_signal<bool> s_reset;
 	sc_signal<bool> s_transmitterReady;
 	sc_signal<bool> s_receiverReady;
+	sc_signal<bool> s_inDataReady;
 	sc_signal<sc_uint<NUM_BITS> > s_data_input;
 	sc_signal<sc_uint<NUM_BITS> > s_data_internal;
 	sc_signal<sc_uint<NUM_BITS> > s_data_output;
+
 
 	sc_clock s_clk("s_clk", 8, SC_NS);
 	Transmitter transmitter("transmitter");
@@ -35,15 +37,22 @@ int sc_main(int argc, char** argv)
 	transmitter.inData(s_data_input);
 	transmitter.inReset(s_reset);
 	transmitter.outData(s_data_internal);
+	transmitter.transmitterReady(s_transmitterReady);
+	transmitter.receiverReady(s_receiverReady);
+	transmitter.inDataReady(s_inDataReady);
 
 	receiver.inClk(s_clk);
 	receiver.inData(s_data_internal);
 	receiver.inReset(s_reset);
 	receiver.outData(s_data_output);
+	receiver.transmitterReady(s_transmitterReady);
+	receiver.receiverReady(s_receiverReady);
 
 	driver.inClk(s_clk);
+	driver.reset(s_reset);
 	driver.inDataPort(s_data_input);
 	driver.outDataPort(s_data_output);
+	driver.inDataReady(s_inDataReady);
 
 	// Sim for 200
 	int end_time = 200;

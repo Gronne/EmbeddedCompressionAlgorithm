@@ -144,7 +144,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CommunicationDriver.cpp" />
+    <ClCompile Include="Testbench.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="Transmitter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CommunicationDriver.h" />
+    <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="Receiver.h" />
+    <ClInclude Include="Transmitter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
