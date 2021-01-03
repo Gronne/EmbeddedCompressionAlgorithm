@@ -8,7 +8,7 @@
 #include "Compressor.h"
 
 
-class SimpleCompressorProducer
+class SimpleCompressorProduct
 {
 public:
 	using SimpleCompressT = string;
@@ -16,7 +16,7 @@ public:
 	using SimpleModelT = Node<typename T::value_type>;
 
 	template<class T>
-	static Compression<T, SimpleCompressT, SimpleModelT<T>>* Produce(sc_fifo<T>* comInPipe, sc_fifo<SimpleCompressT>* comOutPipe, sc_fifo<SimpleCompressT>* decomInPipe, sc_fifo<T>* decomOutPipe) {
+	static Compression<T, SimpleCompressT, SimpleModelT<T>>* Product(sc_fifo<T>* comInPipe, sc_fifo<SimpleCompressT>* comOutPipe, sc_fifo<SimpleCompressT>* decomInPipe, sc_fifo<T>* decomOutPipe) {
 		return new Compression<T, SimpleCompressT, SimpleModelT<T>>( "SimpleCompression", 
 																	 comInPipe, 
 																	 comOutPipe, 
