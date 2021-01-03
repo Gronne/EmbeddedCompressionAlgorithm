@@ -155,10 +155,14 @@
     <ClCompile Include="Top.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompressionFactory.h" />
     <ClInclude Include="Compressor.h" />
     <ClInclude Include="HuffmanCompressor.h" />
     <ClInclude Include="HuffmanDecompressor.h" />
     <ClInclude Include="HuffmanSetup.h" />
+    <ClInclude Include="ICompressionCompress.h" />
+    <ClInclude Include="ICompressionDecompress.h" />
+    <ClInclude Include="ICompressionSetup.h" />
     <ClInclude Include="PredictiveCompressor.h" />
     <ClInclude Include="PredictiveDecompressor.h" />
     <ClInclude Include="PredictiveSetup.h" />

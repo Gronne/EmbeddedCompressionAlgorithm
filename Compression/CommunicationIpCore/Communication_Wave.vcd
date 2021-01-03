@@ -1,0 +1,197 @@
+$date
+     Jan 02, 2021       23:11:20
+$end
+
+$version
+ SystemC 2.3.3-Accellera --- Aug 30 2020 22:08:51
+$end
+
+$timescale
+     1 ns
+$end
+
+$scope module SystemC $end
+$var wire    1  aaaaa  clock       $end
+$var wire    1  aaaab  reset       $end
+$var wire    4  aaaac  data_input [3:0]  $end
+$var wire    4  aaaad  data_internal [3:0]  $end
+$var wire    4  aaaae  data_output [3:0]  $end
+$var wire    1  aaaaf  transmitterReady       $end
+$var wire    1  aaaag  receiverReady       $end
+$var wire    1  aaaah  inDataReady       $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+1aaaaa
+0aaaab
+b0 aaaac
+b0 aaaad
+b0 aaaae
+0aaaaf
+0aaaag
+0aaaah
+$end
+
+#4
+0aaaaa
+
+#8
+1aaaaa
+b101 aaaac
+1aaaag
+1aaaah
+
+#12
+0aaaaa
+
+#16
+1aaaaa
+0aaaah
+
+#20
+0aaaaa
+
+#24
+1aaaaa
+b101 aaaad
+1aaaaf
+
+#28
+0aaaaa
+
+#32
+1aaaaa
+b101 aaaae
+0aaaag
+
+#36
+0aaaaa
+
+#40
+1aaaaa
+
+#44
+0aaaaa
+
+#48
+1aaaaa
+0aaaaf
+1aaaag
+
+#52
+0aaaaa
+
+#56
+1aaaaa
+
+#60
+0aaaaa
+
+#64
+1aaaaa
+
+#68
+0aaaaa
+
+#72
+1aaaaa
+
+#76
+0aaaaa
+
+#80
+1aaaaa
+
+#84
+0aaaaa
+
+#88
+1aaaaa
+
+#92
+0aaaaa
+
+#96
+1aaaaa
+
+#100
+0aaaaa
+
+#104
+1aaaaa
+
+#108
+0aaaaa
+
+#112
+1aaaaa
+
+#116
+0aaaaa
+
+#120
+1aaaaa
+
+#124
+0aaaaa
+
+#128
+1aaaaa
+
+#132
+0aaaaa
+
+#136
+1aaaaa
+
+#140
+0aaaaa
+
+#144
+1aaaaa
+
+#148
+0aaaaa
+
+#152
+1aaaaa
+
+#156
+0aaaaa
+
+#160
+1aaaaa
+
+#164
+0aaaaa
+
+#168
+1aaaaa
+
+#172
+0aaaaa
+
+#176
+1aaaaa
+
+#180
+0aaaaa
+
+#184
+1aaaaa
+
+#188
+0aaaaa
+
+#192
+1aaaaa
+
+#196
+0aaaaa
+
+#200
