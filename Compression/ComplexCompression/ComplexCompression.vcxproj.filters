@@ -25,6 +25,9 @@
     <Filter Include="Source Files\ComplexCompression">
       <UniqueIdentifier>{b9a1a341-d142-4067-936f-406a07a262da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\interfaces">
+      <UniqueIdentifier>{96e3af10-ce24-4b7c-8df2-0167f0266ff7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Compression.cpp">
@@ -76,6 +79,18 @@
     </ClInclude>
     <ClInclude Include="Compressor.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICompressionSetup.h">
+      <Filter>Header Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ICompressionCompress.h">
+      <Filter>Header Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ICompressionDecompress.h">
+      <Filter>Header Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="CompressionFactory.h">
+      <Filter>Header Files\interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
