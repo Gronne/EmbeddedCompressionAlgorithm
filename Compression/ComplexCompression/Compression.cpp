@@ -13,8 +13,6 @@
 // Huffman coding algorithm
 int sc_main(int argc, char** argv)
 {
-
-
     //---------Pipes---------
     //Simple
     sc_fifo<SensorFactory::TextFileSensorSubT> sensorToCompressorSimplePipe;
@@ -30,14 +28,15 @@ int sc_main(int argc, char** argv)
 
     //--------Filters--------
     //Simple
-    SensorFactory::TextFileSensorT* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
+
+    auto* textSensor = SensorFactory::CreateTextFileSensor(&sensorToCompressorSimplePipe);
     Communication<CompressionFactory::SimpleCompressT> simpleCommunicator(&compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe);
-    Compression<SensorFactory::TextFileSensorSubT, CompressionFactory::SimpleCompressT, CompressionFactory::SimpleModelT<SensorFactory::TextFileSensorSubT>> *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
-    
+    auto *simpleCompression = CompressionFactory::MakeSimpleCompression<SensorFactory::TextFileSensorSubT>(&sensorToCompressorSimplePipe, &compressorToTransmitterSimplePipe, &receiverToDecompressorSimplePipe, &decompressorOutSimplePipe);
+
     //Complex
-    SensorFactory::SinusSensorT* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
+    auto* sinusSensor = SensorFactory::CreateSinusSensor(&sensorToCompressorComplexPipe);
     Communication<CompressionFactory::ComplexCompressT> complexCommunicator(&compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe);
-    Compression<SensorFactory::SinusSensorSubT, CompressionFactory::ComplexCompressT, CompressionFactory::ComplexModelT<SensorFactory::SinusSensorSubT>>* complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT, 3>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
+    auto *complexCompression = CompressionFactory::MakeComplexCompression<SensorFactory::SinusSensorSubT, 3>(&sensorToCompressorComplexPipe, &compressorToTransmitterComplexPipe, &receiverToDecompressorComplexPipe, &decompressorOutComplexPipe);
 
 
     //---------Start---------
@@ -45,9 +44,9 @@ int sc_main(int argc, char** argv)
 
     //---------Clean---------
     delete textSensor;
-    //delete sinusSensor;
+    delete sinusSensor;
     delete simpleCompression;
-    //delete complexCompression;
+    delete complexCompression;
 
     //Terminate
     return 0;
